@@ -4,8 +4,9 @@
 
 1. Listing of C code which repeats one "dot" and one "comma" *(here i use a dash, maybe it's simpler to visualize)* (BTW, in Morse code it is letter `A`) on a LED. Always use syntax highlighting, meaningful comments, and follow C guidelines:
 
-N.B. *In this part of code, I defined the constants (delays) which are used after to emit the morse code. 
-We have to note that in comparaison with the original template you have given us, I added ```LONG_DELAY```constant, I could multiply 
+In this part of code, I defined the constants (delays) which are used after to emit the morse code. 
+
+>*We have to note that in comparaison with the original template you have given us, I added ```LONG_DELAY```constant, I could multiply 
 the ```SHORT_DELAY```constant but I thought it's simpler to adjust by adding this constant.* 
 
 ```c
@@ -117,3 +118,5 @@ int main(void)
 2. Scheme of Morse code application, i.e. connection of AVR device, LED, resistor, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
 
    ![your figure]()
+
+3. In this part, you will find the simulation that I did on tinkercad. 
