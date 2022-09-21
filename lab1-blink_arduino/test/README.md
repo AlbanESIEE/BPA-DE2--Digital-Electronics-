@@ -125,5 +125,9 @@ int main(void)
 [tinkercad](https://www.tinkercad.com/things/2sn0hOOQTmw-start-simulating/editel?lessonid=EHD2303J3YPUS5Z&projectid=OT2JZ1PL20FZRMO&collectionid=undefined&sharecode=D2L9wMkQyfJz_Y5SIL3fVYiO3MtQYJY7FO_ZcHH1aUc) (by clicking on the link you can access to my simulation online, because I think that ```git```doesn't support videos). 
 
 
+https://user-images.githubusercontent.com/114081879/191607787-015a3b2f-c630-4eba-a618-275412de9f4e.mov
+
+
+
 2. Here is the morse "alphabet" I extracted from [this webpage](https://en.wikipedia.org/wiki/Morse_code) and I used to generate the ```DE2```word.
 ![International_Morse_Code](https://user-images.githubusercontent.com/114081879/191604578-2fcbe14d-88e2-4801-b795-4e4eabc882fb.png)
