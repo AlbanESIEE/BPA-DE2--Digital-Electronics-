@@ -1,2 +1,5 @@
 ## Welcome to my GIT page
-#You will find on this repository the content of the DE2 course. 
+You will find on this repository the content of the DE2 course. 
+
+1. Test 1
+2. Test 2
