@@ -4,9 +4,9 @@
 
 1. Listing of C code which repeats one "dot" and one "comma" *(here i use a dash, maybe it's simpler to visualize)* (BTW, in Morse code it is letter `A`) on a LED. Always use syntax highlighting, meaningful comments, and follow C guidelines:
 
-In this part of code, I defined the constants (delays) which are used after to emit the morse code. 
+N.B. *In this part of code, I defined the constants (delays) which are used after to emit the morse code. 
 We have to note that in comparaison with the original template you have given us, I added ```LONG_DELAY```constant, I could multiply 
-the ```SHORT_DELAY```constant but I thought it's simpler to adjust by adding this constant. 
+the ```SHORT_DELAY```constant but I thought it's simpler to adjust by adding this constant.* 
 
 ```c
 //////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ In this part, we define the delay in morse code to express one letter.
 //////////////////////////////////////////////////////////////////
 ```
 
-In this part of the code, I created a ```main``` function (execution in loop) and a blink function which is called in the ```blink``` function.
+In this part of the code, I created a ```main``` function (execution in loop) and a ```blink``` function which is called in the ```blink``` function.
 
 ```c
 /* Blink function ----------------------------------------------*/
