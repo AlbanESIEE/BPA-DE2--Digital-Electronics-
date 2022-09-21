@@ -125,4 +125,4 @@ int main(void)
 
 
 2. Here is the morse "alphabet" I extracted from [this webpage](https://en.wikipedia.org/wiki/Morse_code) and I used to generate the ```DE2```word.
-![International_Morse_Code](https://user-images.githubusercontent.com/114081879/191604578-2fcbe14d-88e2-4801-b795-4e4eabc882fb.png | width=200)
+![International_Morse_Code](https://user-images.githubusercontent.com/114081879/191604578-2fcbe14d-88e2-4801-b795-4e4eabc882fb.png)
