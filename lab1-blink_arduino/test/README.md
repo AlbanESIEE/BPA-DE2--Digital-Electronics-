@@ -121,6 +121,9 @@ int main(void)
 
  <img width="1043" alt="lab01- thinkercad" src="https://user-images.githubusercontent.com/114081879/191607304-b43a0346-bf4c-40c1-9286-e7a3f5e7a8c2.png">
 
+>I did this second repressentation on EasyEda software, here's a electrical diagram of the morse emitter. We have to note that it's not the arduino board which is represented here but just the ATMEGA328P chip. I didn't represent oscillator 16MHz, capacitors and input voltage regulators to simplify the diagram. 
+
+<img width="600" alt="schema_morse_easy_eda" src="https://user-images.githubusercontent.com/114081879/191756032-b32538d8-1de0-44f5-8964-157a56951e32.png">
 
 
 ### Additional comments
