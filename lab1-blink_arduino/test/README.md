@@ -121,7 +121,7 @@ int main(void)
 
  <img width="1043" alt="lab01- thinkercad" src="https://user-images.githubusercontent.com/114081879/191607304-b43a0346-bf4c-40c1-9286-e7a3f5e7a8c2.png">
 
->I did this second repressentation on EasyEda software, here's a electrical diagram of the morse emitter. We have to note that it's not the arduino board which is represented here but just the ATMEGA328P chip. I didn't represent oscillator 16MHz, capacitors and input voltage regulators to simplify the diagram. 
+>I did this second representation on EasyEda software, here's a electrical diagram of the morse emitter. We have to note that it's not the arduino board which is represented here but just the ATMEGA328P chip. I didn't represent oscillator 16MHz, capacitors and input voltage regulators to simplify the diagram. 
 
 <img width="600" alt="schema_morse_easy_eda" src="https://user-images.githubusercontent.com/114081879/191756032-b32538d8-1de0-44f5-8964-157a56951e32.png">
 
@@ -137,4 +137,6 @@ https://user-images.githubusercontent.com/114081879/191607787-015a3b2f-c630-4eba
 
 
 2. Here is the morse "alphabet" I extracted from [this webpage](https://en.wikipedia.org/wiki/Morse_code) and I used to generate the ```DE2```word.
-![International_Morse_Code](https://user-images.githubusercontent.com/114081879/191604578-2fcbe14d-88e2-4801-b795-4e4eabc882fb.png)
+
+<img width="600" src="[https://user-images.githubusercontent.com/114081879/191756032-b32538d8-1de0-44f5-8964-157a56951e32.png](https://user-images.githubusercontent.com/114081879/191604578-2fcbe14d-88e2-4801-b795-4e4eabc882fb.png)">
+
