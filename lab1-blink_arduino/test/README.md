@@ -2,7 +2,7 @@
 
 ### Morse code
 
-1. Listing of C code which repeats one "dot" and one "comma" *(here i use a dash, maybe it's simpler to visualize)* (BTW, in Morse code it is letter `A`) on a LED. Always use syntax highlighting, meaningful comments, and follow C guidelines:
+**1. Listing of C code which repeats one "dot" and one "comma" *(here i use a dash, maybe it's simpler to visualize)* (BTW, in Morse code it is letter `A`) on a LED. Always use syntax highlighting, meaningful comments, and follow C guidelines:**
 
 In this part of code, I defined the constants (delays) which are used after to emit the morse code. 
 
@@ -115,7 +115,7 @@ int main(void)
 }
 ```
 
-2. Scheme of Morse code application, i.e. connection of AVR device, LED, resistor, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
+**`#2874A6`2. Scheme of Morse code application, i.e. connection of AVR device, LED, resistor, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!**
 
 >On this scheme I designed on [tinkercad](https://www.tinkercad.com/things/2sn0hOOQTmw-start-simulating/editel?lessonid=EHD2303J3YPUS5Z&projectid=OT2JZ1PL20FZRMO&collectionid=undefined&sharecode=D2L9wMkQyfJz_Y5SIL3fVYiO3MtQYJY7FO_ZcHH1aUc), I represented the Arduino Uno developement board which is powered by the USB connection. Moreover, we have to connect an external LED (we could use the embedded LED of the Arduino, but the brightness is lower than an external one, so I decided to use it with an active high configuration (as on [TOMÁŠ FRÝZA diagram](https://github.com/tomas-fryza/digital-electronics-2/raw/master/labs/01-tools/images/gpio_high_low.png)). Finally, the last component to use is a resistor to lower the voltage across the LED. *As a reminder, the output voltage of the pins of the arduino is 5V in the ```HIGH``` state, we must reduce this voltage to about 2.2V, it may vary slightly depending on the type of LED used.* 
 
