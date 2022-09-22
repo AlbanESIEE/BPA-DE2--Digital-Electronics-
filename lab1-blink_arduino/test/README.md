@@ -117,7 +117,7 @@ int main(void)
 
 2. Scheme of Morse code application, i.e. connection of AVR device, LED, resistor, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
 
->On this scheme I designed on [tinkercad](https://www.tinkercad.com/things/2sn0hOOQTmw-start-simulating/editel?lessonid=EHD2303J3YPUS5Z&projectid=OT2JZ1PL20FZRMO&collectionid=undefined&sharecode=D2L9wMkQyfJz_Y5SIL3fVYiO3MtQYJY7FO_ZcHH1aUc), I represented the Arduino Uno developement board which is powered by the USB connection. Moreover, we have to connect an external LED (we could use the embedded LED of the Arduino, but the brightness is lower than an external one, so I decided to use it with an active high configuration (as on [TOMÁŠ FRÝZA diagram](https://github.com/tomas-fryza/digital-electronics-2/raw/master/labs/01-tools/images/gpio_high_low.png)). Finally, the last component to use is a resistor to lower the voltage across the LED. *As a reminder, the output voltage of the pins of the arduino is 5V in the high state, we must reduce this voltage to about 2.2V, it may vary slightly depending on the type of LED used.* 
+>On this scheme I designed on [tinkercad](https://www.tinkercad.com/things/2sn0hOOQTmw-start-simulating/editel?lessonid=EHD2303J3YPUS5Z&projectid=OT2JZ1PL20FZRMO&collectionid=undefined&sharecode=D2L9wMkQyfJz_Y5SIL3fVYiO3MtQYJY7FO_ZcHH1aUc), I represented the Arduino Uno developement board which is powered by the USB connection. Moreover, we have to connect an external LED (we could use the embedded LED of the Arduino, but the brightness is lower than an external one, so I decided to use it with an active high configuration (as on [TOMÁŠ FRÝZA diagram](https://github.com/tomas-fryza/digital-electronics-2/raw/master/labs/01-tools/images/gpio_high_low.png)). Finally, the last component to use is a resistor to lower the voltage across the LED. *As a reminder, the output voltage of the pins of the arduino is 5V in the ```HIGH``` state, we must reduce this voltage to about 2.2V, it may vary slightly depending on the type of LED used.* 
 
  <img width="1043" alt="lab01- thinkercad" src="https://user-images.githubusercontent.com/114081879/191607304-b43a0346-bf4c-40c1-9286-e7a3f5e7a8c2.png">
 
@@ -125,7 +125,8 @@ int main(void)
 ### Additional comments
 1. In this part, you will find the simulation that I did on
 [tinkercad](https://www.tinkercad.com/things/2sn0hOOQTmw-start-simulating/editel?lessonid=EHD2303J3YPUS5Z&projectid=OT2JZ1PL20FZRMO&collectionid=undefined&sharecode=D2L9wMkQyfJz_Y5SIL3fVYiO3MtQYJY7FO_ZcHH1aUc) (there is also a video, you can see below). 
-
+>We can see that se morse code **(.__  .  ..__ __ __)** is correctly running on the simulation. Moreover, the thinkercad IDE is based on the Arduino IDE, so I changed the ```while(1)```into ```void loop()```and moved the ```pinMode```into the ```void setup()```function. 
+>I already knew the Autocad suite so that's why I used tinkercad tool to simulate the morse code. But next time I will use *simulide*.
 
 https://user-images.githubusercontent.com/114081879/191607787-015a3b2f-c630-4eba-a618-275412de9f4e.mov
 
