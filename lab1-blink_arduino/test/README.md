@@ -125,7 +125,7 @@ int main(void)
 ### Additional comments
 1. In this part, you will find the simulation that I did on
 [tinkercad](https://www.tinkercad.com/things/2sn0hOOQTmw-start-simulating/editel?lessonid=EHD2303J3YPUS5Z&projectid=OT2JZ1PL20FZRMO&collectionid=undefined&sharecode=D2L9wMkQyfJz_Y5SIL3fVYiO3MtQYJY7FO_ZcHH1aUc) (there is also a video, you can see below). 
->We can see that se morse code **(.__  .  ..__ __ __)** is correctly running on the simulation. Moreover, the thinkercad IDE is based on the Arduino IDE, so I changed the ```while(1)```into ```void loop()```and moved the ```pinMode```into the ```void setup()```function. 
+>We can see that se morse code **(.__    .    ..__ __ __)** is correctly running on the simulation. Moreover, the thinkercad IDE is based on the Arduino IDE, so I changed the ```while(1)```into ```void loop()```and moved the ```pinMode```into the ```void setup()```function. 
 >I already knew the Autocad suite so that's why I used tinkercad tool to simulate the morse code. But next time I will use *simulide*.
 
 https://user-images.githubusercontent.com/114081879/191607787-015a3b2f-c630-4eba-a618-275412de9f4e.mov
