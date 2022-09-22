@@ -138,5 +138,5 @@ https://user-images.githubusercontent.com/114081879/191607787-015a3b2f-c630-4eba
 
 2. Here is the morse "alphabet" I extracted from [this webpage](https://en.wikipedia.org/wiki/Morse_code) and I used to generate the ```DE2```word.
 
-<img width="600" alt = "morse" src="[https://user-images.githubusercontent.com/114081879/191756032-b32538d8-1de0-44f5-8964-157a56951e32.png](https://user-images.githubusercontent.com/114081879/191604578-2fcbe14d-88e2-4801-b795-4e4eabc882fb.png)">
+<img width="600" alt = "morse" src="https://user-images.githubusercontent.com/114081879/191604578-2fcbe14d-88e2-4801-b795-4e4eabc882fb.png">
 
