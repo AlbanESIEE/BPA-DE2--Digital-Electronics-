@@ -32,6 +32,7 @@
 > - LED_CARS_GREEN *(led green for cars)* to a digital pin (that we will configure in output). Here, I have chosen `PB5`.
 > - LED_CARS_ORANGE *(led orange/yellow for cars)* to a digital pin (that we will configure in output). Here, I have chosen `PB4`.
 > - LED_CARS_RED *(led red for cars)* to a digital pin (that we will configure in output). Here, I have chosen `PB3`.
+> 
 > - LED_PEDESTRIANS_RED *(led red for pedestrians)* to a digital pin (that we will configure in output). Here, I have chosen `PB2`.
 > - LED_PEDESTRIANS_GREEN *(led green for pedestrians)* to a digital pin (that we will configure in output). Here, I have chosen `PB1`.
 
