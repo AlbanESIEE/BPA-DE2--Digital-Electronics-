@@ -7,9 +7,9 @@
    | **DDRB** | **PORTB** | **Direction** | **Internal pull-up resistor** | **Description** |
    | :-: | :-: | :-: | :-: | :-- |
    | 0 | 0 | input | no | Tri-state, high-impedance |
-   | 0 | 1 | input | no | We set the port to the 1 state|
-   | 1 | 0 | | | |
-   | 1 | 1 | | | |
+   | 0 | 1 | input | yes | pull-up activated|
+   | 1 | 0 | output | no| |
+   | 1 | 1 | output | yes| |
 
 ### GPIO library
 
