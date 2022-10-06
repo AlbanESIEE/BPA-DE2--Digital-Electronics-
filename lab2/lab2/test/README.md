@@ -27,6 +27,9 @@
 3. Scheme of traffic light application with one red/yellow/green light for cars, one red/green light for pedestrians, and one push button. Connect AVR device, LEDs, resistors, push button (for pedestrians), and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
 
    ![your figure]()
+Here is my scheme of traffic light application with one red/yellow/green light for cars, one red/green light for pedestrians, and one push button (I made it on Easy Eda). 
+
+![Schematic_Digital electronics 2 (DE2)_2022-10-06](https://user-images.githubusercontent.com/114081879/194310267-dada0ad1-df7f-4a3d-88b0-925073b8f804.svg)
 
 According to the Arduino UNO pinout (which is based on an ATMEGA328P microcontroller), we connect : 
 
@@ -39,5 +42,8 @@ According to the Arduino UNO pinout (which is based on an ATMEGA328P microcontro
  - `LED_PEDESTRIANS_RED` *(led red for pedestrians)* to a digital pin (that we will configure in output). Here, I have chosen `PB2`.
  - `LED_PEDESTRIANS_GREEN` *(led green for pedestrians)* to a digital pin (that we will configure in output). Here, I have chosen `PB1`.
  - `PUSH_BUTTON`*(the push-button for pedestrians)* to an analog pin (configured in input). Here, I connected it to `PC0`.
+
+In the following pinout diagram of the Arduino UNO (based on a microcontroller ATMEGA328P), we can see the location of `PB5` to `PB1`and `PC0` pins I used.
+>Please note I made the electrical diagram on EasyEda (software to create electricals diagrams and PCBs routing), so I didn't represent the Arduino Board but the Atmega328P microcontroller. 
 
 ![Pinout-UNOrev3_latest](https://user-images.githubusercontent.com/114081879/194305483-f8924e3c-08c0-4ced-933a-794cdd1d37e3.png)
