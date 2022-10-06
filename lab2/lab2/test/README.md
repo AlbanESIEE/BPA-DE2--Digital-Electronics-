@@ -32,7 +32,7 @@
 
 For the LEDs resistors, we have the following calculus : 
 $V=R\times I$
-$R=\frac{V}{I}$
+\\$\LongleftrightarrowR=\frac{V}{I}$
 
 ![Schematic_Digital electronics 2 (DE2)_2022-10-06](https://user-images.githubusercontent.com/114081879/194310267-dada0ad1-df7f-4a3d-88b0-925073b8f804.svg)
 
