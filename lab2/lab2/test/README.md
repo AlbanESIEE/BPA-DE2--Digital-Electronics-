@@ -26,8 +26,9 @@
 
 3. Scheme of traffic light application with one red/yellow/green light for cars, one red/green light for pedestrians, and one push button. Connect AVR device, LEDs, resistors, push button (for pedestrians), and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
 
-   ![your figure]()
-Here is my scheme of traffic light application with one red/yellow/green light for cars, one red/green light for pedestrians, and one push button (I made it on Easy Eda). 
+
+>Here is my scheme of traffic light application with one red/yellow/green light for cars, one red/green light for pedestrians, and one push button (I made it on Easy Eda).
+>Please note that for pedestrians push button, I use an *active HIGH configuration* and for the LEDs, an *active high configuration* too. 
 
 ![Schematic_Digital electronics 2 (DE2)_2022-10-06](https://user-images.githubusercontent.com/114081879/194310267-dada0ad1-df7f-4a3d-88b0-925073b8f804.svg)
 
