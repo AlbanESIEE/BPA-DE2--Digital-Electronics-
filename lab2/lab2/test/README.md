@@ -29,6 +29,7 @@
    ![your figure]()
 
 According to the Arduino UNO pinout (which is based on an ATMEGA328P microcontroller), we connect : 
+
 **For cars :**
  - `LED_CARS_GREEN` *(led green for cars)* to a digital pin (that we will configure in output). Here, I have chosen `PB5`.
  - `LED_CARS_ORANGE` *(led orange/yellow for cars)* to a digital pin (that we will configure in output). Here, I have chosen `PB4`.
@@ -37,6 +38,6 @@ According to the Arduino UNO pinout (which is based on an ATMEGA328P microcontro
 **For pedestrians :**
  - `LED_PEDESTRIANS_RED` *(led red for pedestrians)* to a digital pin (that we will configure in output). Here, I have chosen `PB2`.
  - `LED_PEDESTRIANS_GREEN` *(led green for pedestrians)* to a digital pin (that we will configure in output). Here, I have chosen `PB1`.
-
+ - `PUSH_BUTTON`*(the push-button for pedestrians)* to an analog pin (configured in input). Here, I connected it to `PC0`.
 
 ![Pinout-UNOrev3_latest](https://user-images.githubusercontent.com/114081879/194305483-f8924e3c-08c0-4ced-933a-794cdd1d37e3.png)
