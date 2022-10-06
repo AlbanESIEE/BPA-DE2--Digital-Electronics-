@@ -32,7 +32,15 @@
 
 For the LEDs resistors, we have the following calculus : 
 $V=R\times I$
+
 $\Longleftrightarrow R=\frac{V}{I}$
+
+$\Longleftrightarrow R=\frac{V_{GPIO}-V_{LED}}{I_{LED}}$
+
+$\Longleftrightarrow R=\frac{5-1,2}{20\times 10^{-3}}$
+
+$\Longleftrightarrow R=190\Omega$
+
 
 ![Schematic_Digital electronics 2 (DE2)_2022-10-06](https://user-images.githubusercontent.com/114081879/194310267-dada0ad1-df7f-4a3d-88b0-925073b8f804.svg)
 
