@@ -1,4 +1,4 @@
-# Lab 2: YOUR_FIRSTNAME LASTNAME
+# Lab 2: Alban FERRACANI
 
 ### GPIO control registers
 
@@ -7,7 +7,7 @@
    | **DDRB** | **PORTB** | **Direction** | **Internal pull-up resistor** | **Description** |
    | :-: | :-: | :-: | :-: | :-- |
    | 0 | 0 | input | no | Tri-state, high-impedance |
-   | 0 | 1 | | | |
+   | 0 | 1 | input | no | We set the port to the 1 state|
    | 1 | 0 | | | |
    | 1 | 1 | | | |
 
