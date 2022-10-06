@@ -30,7 +30,8 @@
 >Here is my scheme of traffic light application with one red/yellow/green light for cars, one red/green light for pedestrians, and one push button (I made it on Easy Eda).
 >Please note that for pedestrians push button, I use an *active HIGH configuration* and for the LEDs, an *active high configuration* too. 
 
-For the LEDs resistors, we have the following calculus : 
+For the LEDs resistors, we have the following calculus *(Kirchhoff's circuit laws)*: 
+
 $V=R\times I$
 
 $\Longleftrightarrow R=\frac{V}{I}$
