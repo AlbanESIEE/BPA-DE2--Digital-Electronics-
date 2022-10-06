@@ -20,7 +20,7 @@
    | Arduino-style     | 480 |
    | Registers         | 182 |
    | Library functions | 182 |
-   >We can note that with using registers or library functions, we save about 62% of flash !
+   >We can note that with using registers or library functions, we save about 62% of flash compared to Arduino coding style !
 
 ### Traffic light
 
