@@ -27,5 +27,7 @@
 3. Scheme of traffic light application with one red/yellow/green light for cars, one red/green light for pedestrians, and one push button. Connect AVR device, LEDs, resistors, push button (for pedestrians), and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
 
    ![your figure]()
-   
+
+>According to the Arduino UNO pinout (which is based on an ATMEGA328P microcontroller), we connect : 
+> - LED_CARS_GREEN to a digital pin (that we will configure in output). Here, I have chosen 'PB5'.
 ![Pinout-UNOrev3_latest](https://user-images.githubusercontent.com/114081879/194305483-f8924e3c-08c0-4ced-933a-794cdd1d37e3.png)
