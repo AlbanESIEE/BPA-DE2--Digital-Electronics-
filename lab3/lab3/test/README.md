@@ -5,7 +5,6 @@
 1. Complete table with overflow times.
 
 >$t_{ovf}=\frac{1}{f_{cpu}}\times N \times 2^n$
-
 >with $t_{ovf}$ the overflow time, $N$ the prescaler value, $n$ the number of bits.
 
 Let's develop the calculus for the fist raw of the table : 
