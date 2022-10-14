@@ -14,7 +14,7 @@ $t_{ovf}=\frac{1}{16\times 10^6}\times 1 \times 2^8 = 1,6\times 10^{-5} = 16u$
 
 $t_{ovf}=\frac{1}{16\times 10^6}\times 8 \times 2^8 = 1,28\times 10^{-4} = 128u$
 
-$t_{ovf}=\frac{1}{16\times 10^6}\times 64 \times 2^8 = 1,02\times 10^{-3} = 1m $
+$t_{ovf}=\frac{1}{16\times 10^6}\times 64 \times 2^8 = 1,02\times 10^{-3} = 1m$
 
 $t_{ovf}=\frac{1}{16\times 10^6}\times 256 \times 2^8 = 4,09\times 10^{-3} = 4m$
 
