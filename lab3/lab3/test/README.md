@@ -31,10 +31,41 @@ $t_{ovf}=\frac{1}{16\times 10^6}\times 1024 \times 2^8 = 16\times 10^{-3} = 16mS
 
 2. In `timer.h` header file, define macros also for Timer/Counter2. Listing of part of the header file with settings for Timer/Counter2. Always use syntax highlighting, meaningful comments, and follow C guidelines:
 
+>In the `timer.h`header, I have defined macros for Timer-counter 2. It's a 8 bits timer/counter so, I have calculated the overflows times in function of the prescaler. Here, we can use the following prescalers : `1`, `8`, `32`, `64`, `128`, `256`,`1024` (counters 0 and 1 can't use the `32`and `128`prescalers). 
+>Finally, I used the ATmega48A/PA/88A/PA/168A/PA/328/P Data Sheet to know the Clock Select Bit Description (page 165).
+
    ```c
    /**
     * @name  Definitions for 8-bit Timer/Counter2
     * @note  t_OVF = 1/F_CPU * prescaler * 2^n where n = 8, F_CPU = 16 MHz
     */
-   // WRITE YOUR CODE HERE
+   /** @brief Stop timer, prescaler 000 --> STOP */
+   #define TIM2_stop()           TCCR2B &= ~((1<<CS22) | (1<<CS21)); TCCR2B |= (1<<CS20);
+
+   /** @brief Set overflow 16us, prescaler 1 -> 001 */ 
+   #define TIM2_overflow_16us()    TCCR2B &= ~((1<<CS22) | (1<<CS21)); TCCR2B |= (1<<CS20);
+
+   /** @brief Set overflow 128us, prescaler 8 -> 010 */ 
+   #define TIM2_overflow_128us()    TCCR2B &= ~((1<<CS22) | (1<<CS20)); TCCR2B |= (1<<CS21);
+
+   /** @brief Set overflow 512us, prescaler 32 -> 011 */ 
+   #define TIM2_overflow_512us()   TCCR2B &= ~(1<<CS22); TCCR2B |= (1<<CS21)|(1<<CS20);
+
+   /** @brief Set overflow 1ms, prescaler 64 -> 100 */ 
+   #define TIM2_overflow_1ms()     TCCR2B &= ~((1<<CS21) | (1<<CS20)); TCCR2B |= (1<<CS22);
+
+   /** @brief Set overflow 2ms, prescaler 128 -> 101 */ 
+   #define TIM2_overflow_2ms()    TCCR2B &= ~(1<<CS21); TCCR2B |= (1<<CS22)|(1<<CS20);
+
+   /** @brief Set overflow 4ms, prescaler 256 -> 110 */ 
+   #define TIM2_overflow_4ms()    TCCR2B &= ~(1<<CS20); TCCR2B |= (1<<CS22)|(1<<CS21);
+
+   /** @brief Set overflow 16ms, prescaler 1024 -> 111 */ 
+   #define TIM2_overflow_16ms()   TCCR2B |= (1<<CS22)|(1<<CS21)|(1<<CS20);
+
+
+   /** @brief Enable overflow interrupt, 1 --> enable */
+   #define TIM2_overflow_interrupt_enable()  TIMSK2 |= (1<<TOIE2);
+   /** @brief Disable overflow interrupt, 0 --> disable */
+   #define TIM2_overflow_interrupt_disable() TIMSK2 &= ~(1<<TOIE2);
    ```
