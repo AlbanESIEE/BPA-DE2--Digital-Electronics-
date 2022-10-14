@@ -8,6 +8,22 @@ $t_{ovf}=\frac{1}{f_{cpu}}\times N \times 2^n$
 
 with $t_{ovf}$ the overflow time, $N$ the prescaler value, $n$ the number of bits.
 
+Let's develop the calculus for the fist raw of the table : 
+
+$t_{ovf}=\frac{1}{16\times 10^6}}\times 1 \times 2^8$
+
+$t_{ovf}=\frac{1}{16\times 10^6}}\times 8 \times 2^8$
+
+$t_{ovf}=\frac{1}{16\times 10^6}}\times 32 \times 2^8$
+
+$t_{ovf}=\frac{1}{16\times 10^6}}\times 64 \times 2^8$
+
+$t_{ovf}=\frac{1}{16\times 10^6}}\times 128 \times 2^8$
+
+$t_{ovf}=\frac{1}{16\times 10^6}}\times 256 \times 2^8$
+
+$t_{ovf}=\frac{1}{16\times 10^6}}\times 1024 \times 2^8$
+
    | **Module** | **Number of bits** | **1** | **8** | **32** | **64** | **128** | **256** | **1024** |
    | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
    | Timer/Counter0 | 8  | 16u | 128u | -- | 1m | -- | 4m | 16m |
