@@ -10,15 +10,11 @@ with $t_{ovf}$ the overflow time, $N$ the prescaler value, $n$ the number of bit
 
 Let's develop the calculus for the fist raw of the table : 
 
-$t_{ovf}=\frac{1}{16\times 10^6}\times 1 \times 2^8$
+$t_{ovf}=\frac{1}{16\times 10^6}\times 1 \times 2^8 = 1,6\times 10^{-5}$
 
-$t_{ovf}=\frac{1}{16\times 10^6}\times 8 \times 2^8$
-
-$t_{ovf}=\frac{1}{16\times 10^6}\times 32 \times 2^8$
+$t_{ovf}=\frac{1}{16\times 10^6}\times 8 \times 2^8 $
 
 $t_{ovf}=\frac{1}{16\times 10^6}\times 64 \times 2^8$
-
-$t_{ovf}=\frac{1}{16\times 10^6}\times 128 \times 2^8$
 
 $t_{ovf}=\frac{1}{16\times 10^6}\times 256 \times 2^8$
 
