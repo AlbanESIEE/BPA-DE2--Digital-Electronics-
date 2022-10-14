@@ -5,6 +5,7 @@
 1. Complete table with overflow times.
 
 $t_{ovf}=\frac{1}{f_{cpu}}\times N \times 2^n$
+
 with $t_{ovf}$ the overflow time, $N$ the prescaler value, $n$ the number of bits.
 
    | **Module** | **Number of bits** | **1** | **8** | **32** | **64** | **128** | **256** | **1024** |
