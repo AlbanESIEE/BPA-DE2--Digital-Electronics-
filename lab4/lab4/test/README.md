@@ -10,7 +10,7 @@ With a conditionnal statement, we test if `number`is greater than 6, if it is, t
 
 I designed this flowchart on *Wondershare EdrawMax software*. 
 
-<img width="966" alt="Capture d’écran 2022-10-20 à 13 29 07" src="https://user-images.githubusercontent.com/114081879/196936764-03f9ac28-244d-49fe-a93b-c49dc9506950.png">
+<img width="978" alt="Capture d’écran 2022-10-20 à 13 30 32" src="https://user-images.githubusercontent.com/114081879/196937044-2793dfd4-fa65-4596-8788-4fd83d16f2c8.png">
 
 
 
