@@ -7,6 +7,7 @@
 First of all, in the main loop, we have to initialize LCD display. Moreover, we have to set timer 2 on 16ms (using functions we created in the previous labs). We don't forget to *enable* the timer 2 overflow. After that, we have to enable interrupts globally with `sei` block. Then, it's the timer 2 which will interrupt the loop and go to the **interrupt service routine**. 
 
 With a conditionnal statement, we test if `number`is greater than 6, if it is, that means that we have $16\times 6 = 100ms$, so we increment the diferent variables (tenths, secs, min) in function they are greater to 9 for tenths, 59 for seconds and 59 for minutes. If not, we continue incrementing under-branch variable. 
+Finally, if minutes are greater to 59, that means that we reset the timer to 0 minutes, 0 seconds and 0 tenths and we count again. 
 
 I designed this flowchart on *Wondershare EdrawMax software*. 
 
