@@ -9,7 +9,7 @@ First of all, in the main loop, we have to initialize LCD display. Moreover, we 
 With a conditionnal statement, we test if `number`is greater than 6, if it is, that means that we have $16\times 6 = 100ms$, so we increment the diferent variables (tenths, secs, min) in function they are greater to 9 for tenths, 59 for seconds and 59 for minutes. If not, we continue incrementing under-branch variable. 
 Finally, if minutes are greater to 59, that means that we reset the timer to 0 minutes, 0 seconds and 0 tenths and we count again. 
 
-I designed this flowchart on *Wondershare EdrawMax software*. 
+>I designed this flowchart on *Wondershare EdrawMax software*. 
 
 <img width="978" alt="Capture d’écran 2022-10-20 à 13 30 32" src="https://user-images.githubusercontent.com/114081879/196937044-2793dfd4-fa65-4596-8788-4fd83d16f2c8.png">
 
