@@ -33,9 +33,17 @@ You will find on this repository the content of the DE2 course followed during m
    On the `ATMEGA328P` microcontroller, the internal analog to digital converter is single ended (*lecture 6 - 25/10/22*). This means that $ADC=\frac{V_{IN}}{V_{REF}}\times (2^n-1). With $V_{IN}$ the analog signal level, $V_{REF}$ the reference level and $n$ the number of bits.
    On `ATMEGA328P` microcontroller, we have $V_{REF}=5V$ and $n=10$ bits.
    
-   $ADC_{PC0-Right} = \frac{V_{PC0-Right}}{5}\times (2^{10}-1) = \frac{0,495}{5}\times 1023 = 101,277 \rightarrow 101$
+   $ADC_{PC0-Right} = \frac{V_{PC0-none}}{5}\times (2^{10}-1) = \frac{0}{5}\times 1023 = 0$
    
-   $ADC_{PC0-Up} = \frac{V_{PC0-Up}}{5}\times (2^{10}-1) = \frac{1,203}{5}\times 1023 = 246,133 \rightarrow 246$
+   $ADC_{PC0-Up} = \frac{V_{PC0-Up}}{5}\times (2^{10}-1) = \frac{0,495}{5}\times 1023 = 101,277 \rightarrow 101$
+   
+   $ADC_{PC0-Down} = \frac{V_{PC0-Down}}{5}\times (2^{10}-1) = \frac{1,203}{5}\times 1023 = 246,133 \rightarrow 246$
+   
+   $ADC_{PC0-Left} = \frac{V_{PC0-Left}}{5}\times (2^{10}-1) = \frac{1,970}{5}\times 1023 = 403,062 \rightarrow 403$
+   
+   $ADC_{PC0-Sel} = \frac{V_{PC0-Sel}}{5}\times (2^{10}-1) = \frac{3,181}{5}\times 1023 = 650,833 \rightarrow 651$
+   
+   $ADC_{PC0-none} = \frac{V_{PC0-none}}{5}\times (2^{10}-1) = \frac{5}{5}\times 1023 = 1023$
    
    >I referred to the resistors values of Tomas Fryza's EasyEda shematic (screenshot source : https://oshwlab.com/tomas.fryza/arduino-shields).
    >
