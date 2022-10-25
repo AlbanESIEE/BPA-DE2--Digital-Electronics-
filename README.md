@@ -29,7 +29,8 @@ You will find on this repository the content of the DE2 course followed during m
    $V_{PC0-Sel} = Vcc\times \frac{(R_3+R_4+R_5+R_6)}{(R_3+R_4+R_5+R_6)+R_2}=5\times \frac{330+620+1000+3300}{330+620+1000+3300+3000}=3,181V$
    
    I referred to the values of Tomas Fryza's EasyEda shematic. 
-   <img width="200" alt="Capture d’écran 2022-10-25 à 18 09 06" src="https://user-images.githubusercontent.com/114081879/197825912-c5a5daf5-b22e-4886-9e6d-312d1c9442b5.png">
+   
+   <img width="250" alt="Capture d’écran 2022-10-25 à 18 09 06" src="https://user-images.githubusercontent.com/114081879/197825912-c5a5daf5-b22e-4886-9e6d-312d1c9442b5.png">
 
 ### Temperature meter
 
