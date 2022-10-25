@@ -31,9 +31,8 @@ You will find on this repository the content of the DE2 course followed during m
    $V_{PC0-none} = 5V$, here there is no voltage divider but a pull up configuration with $R_2$ connected to $V_{CC}=5V$ and $PC0$.
    
    
-   I referred to the resistors values of Tomas Fryza's EasyEda shematic (screenshot here).
-   
-   <img width="250" alt="Capture d’écran 2022-10-25 à 18 09 06" src="https://user-images.githubusercontent.com/114081879/197825912-c5a5daf5-b22e-4886-9e6d-312d1c9442b5.png">
+   >I referred to the resistors values of Tomas Fryza's EasyEda shematic (screenshot here).
+   ><img width="250" alt="Capture d’écran 2022-10-25 à 18 09 06" src="https://user-images.githubusercontent.com/114081879/197825912-c5a5daf5-b22e-4886-9e6d-312d1c9442b5.png">
 
 ### Temperature meter
 
