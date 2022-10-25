@@ -16,7 +16,7 @@ You will find on this repository the content of the DE2 course followed during m
    | Select | 3.181&nbsp;V |  |  |  |
    | none   | 5.0&nbsp;V|  |  |  |
    
-   *Details about calculus :*
+   **Details about calculus :**
 
    $V_{PC0-Right} = 0V$, here there is no voltage divider.
    
