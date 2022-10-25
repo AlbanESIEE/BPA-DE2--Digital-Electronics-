@@ -14,7 +14,7 @@ You will find on this repository the content of the DE2 course followed during m
    | Down   | 1.203&nbsp;V | 246 |  |  |
    | Left   | 1.970&nbsp;V |  |  |  |
    | Select | 3.181&nbsp;V |  |  |  |
-   | none   |  |  |  |  |
+   | none   | 5.0&nbsp;V|  |  |  |
    
    *Details about calculus :*
 
@@ -27,6 +27,8 @@ You will find on this repository the content of the DE2 course followed during m
    $V_{PC0-Left} = Vcc\times \frac{(R_3+R_4+R_5)}{(R_3+R_4+R_5)+R_2}=5\times \frac{330+620+1000}{330+620+1000+3000}=1,97V$
    
    $V_{PC0-Sel} = Vcc\times \frac{(R_3+R_4+R_5+R_6)}{(R_3+R_4+R_5+R_6)+R_2}=5\times \frac{330+620+1000+3300}{330+620+1000+3300+3000}=3,181V$
+   
+   $V_{PC0-none} = 5V$, here there is no voltage divider but a pull up configuration with $R_2$ connected to $V_{CC}=5V$ and $PC0$.
    
    I referred to the values of Tomas Fryza's EasyEda shematic. 
    
