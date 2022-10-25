@@ -21,3 +21,6 @@ Finally, if minutes are greater to 59, that means that we reset the timer to 0 m
 
 For the kitchen alarm, I have represented the electrical diagram on the following scheme (I have made it with EasyEda). We have 3 push buttons, with a pull down resistor. Moreover, I added one LED which will start blinking at the end of the counter. The calculus of resistors values are the same than in the previous labs. I represented also the 16*2 LCD display. the particularity here is that I used a transistor (as a relay) to control the LCD backlight. This backlight command is provided with `PB2` of the ATMEGA328P microcontroller. 
   ![Sheet_1](https://user-images.githubusercontent.com/114081879/196925510-eedbc530-bb83-4efd-9dfc-e487e89c82b2.svg)
+
+>As we learned in 25 October lecture, I also could use only one analog port on the ATMEGA328P microcontroller (for the three push-buttons) by using a voltage devider configuration. It just assumes that you don't have to press several buttons at the same time, but that's not the case with our configuration.
+This may be a great issue if we use a lot of pins and we have not enough Analog pins available, here just one would be sufficient.
