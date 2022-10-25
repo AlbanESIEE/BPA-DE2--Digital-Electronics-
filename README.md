@@ -21,6 +21,8 @@ You will find on this repository the content of the DE2 course followed during m
    $V_{PC0-Right} = 0V$, here there is no voltage divider.
    
    $V_{PC0-Up} = Vcc\times \frac{R_3}{R_3+R_2}=5\times \frac{330}{330+3000}=0,495V$
+   
+   $V_{PC0-Down} = Vcc\times \frac{(R_3+R_4)}{(R_3+R_4)+R_2}=5\times \frac{330+620}{330+620+3000}=0,120V$
 
 ### Temperature meter
 
