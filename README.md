@@ -33,6 +33,7 @@ You will find on this repository the content of the DE2 course followed during m
    On the `ATMEGA328P` microcontroller, the internal analog to digital converter is single ended (*lecture 6 - 25/10/22*). This means that $ADC=\frac{V_{IN}}{V_{REF}}\times (2^n-1). With $V_{IN}$ the analog signal level, $V_{REF}$ the reference level and $n$ the number of bits.
    On `ATMEGA328P` microcontroller, we have $V_{REF}=5V$ and $n=10$ bits.
    
+   $ADC_{PC0-Right} = \frac{V_{PC0-Right}}{5}\times (2^10-1) = \frac{0,495}{5}\times 1023 = 101,277 \rightarrow 101$
    
    
    >I referred to the resistors values of Tomas Fryza's EasyEda shematic (screenshot source : https://oshwlab.com/tomas.fryza/arduino-shields).
