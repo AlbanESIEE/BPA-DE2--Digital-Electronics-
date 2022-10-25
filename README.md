@@ -30,10 +30,14 @@ You will find on this repository the content of the DE2 course followed during m
    
    $V_{PC0-none} = 5V$, here there is no voltage divider but a pull up configuration with $R_2$ connected to $V_{CC}=5V$ and $PC0$.
    
+   On the `ATMEGA328P` microcontroller, the internal analog to digital converter is single ended (*lecture 6 - 25/10/22*). This means that $ADC=\frac{V_{IN}}{V_{REF}}\times (2^n-1). With $V_{IN}$ the analog signal level, $V_{REF} the reference level and $n$ the number of bits.
+   On ATMEGA328P microcontroller, we have $V_{REF}=5V$ and $n=10$ bits.
    
    >I referred to the resistors values of Tomas Fryza's EasyEda shematic (screenshot source : https://oshwlab.com/tomas.fryza/arduino-shields).
    >
    ><img width="250" alt="Capture d’écran 2022-10-25 à 18 09 06" src="https://user-images.githubusercontent.com/114081879/197825912-c5a5daf5-b22e-4886-9e6d-312d1c9442b5.png">
+
+   
 
 ### Temperature meter
 
