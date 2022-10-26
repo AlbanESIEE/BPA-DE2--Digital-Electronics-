@@ -55,6 +55,7 @@ Consider an application for temperature measurement. Use analog temperature sens
   
  >Here, I drawn this schematic with EasyEda software. 
  >We use an `ATMEGA328P` microcontroller, a `TC1046`temperature sensor, a $16\times2$ LCD display and a LED which will be turn on if the temperature is too high. After reading the datasheet of the [TC1046 sensor](http://ww1.microchip.com/downloads/en/DeviceDoc/21496C.pdf), I learned that it's possible to power the sensor in $5V$ and that the output voltage of the sensor is proportional to the temperature (it will be useful when we will program this application).
+ 
  ![Schematic_lab5_2022-10-26](https://user-images.githubusercontent.com/114081879/198086474-52801d91-a0e3-4e24-bccf-2e8c497a2af4.svg)
 
 
