@@ -62,9 +62,11 @@ Consider an application for temperature measurement. Use analog temperature sens
 3. Draw two flowcharts for interrupt handler `TIMER1_OVF_vect` (which overflows every 1&nbsp;sec) and `ADC_vect`. The image can be drawn on a computer or by hand. Use clear descriptions of the individual steps of the algorithms.
    
    >As we know, is we use `TIMER1`, we can use directly the 256 prescaler on `TIMER1` to overflow every 1s. As we 'refresh' the temperature value every 30 seconds, it's not a problem to have a refresh rate of the LCD display greater than 1 second. 
+   
    | **Module** | **Number of bits** | **1** | **8** | **32** | **64** | **128** | **256** | **1024** |
    | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
    | Timer/Counter0 | 8  | 16u | 128u | -- | 1m | -- | 4m | 16m |
    | Timer/Counter1 | 16 | 4m | 33m | -- | 262m | -- | **1s** | 4.2s |
    | Timer/Counter2 | 8  | 16u | 128u | 512u | 1m | 2m | 4m | 16m |
+   
    ![your figure]()
