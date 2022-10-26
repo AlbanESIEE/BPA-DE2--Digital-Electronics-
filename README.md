@@ -13,7 +13,7 @@ You will find on this repository the content of the DE2 course followed during m
    | Up     | 0.495&nbsp;V | 101 |  |  |
    | Down   | 1.203&nbsp;V | 246 |  |  |
    | Left   | 1.970&nbsp;V | 403 |  |  |
-   | Select | 3.181&nbsp;V | 651 |  |  |
+   | Select | 3.181&nbsp;V | 650 |  |  |
    | none   | 5.0&nbsp;V| 1023 |  |  |
    
    **Details about calculus :**
@@ -41,7 +41,7 @@ You will find on this repository the content of the DE2 course followed during m
    
    $ADC_{PC0-Left} = \frac{V_{PC0-Left}}{5}\times (2^{10}-1) = \frac{1,970}{5}\times 1023 = 403,062 \rightarrow 403$
    
-   $ADC_{PC0-Sel} = \frac{V_{PC0-Sel}}{5}\times (2^{10}-1) = \frac{3,181}{5}\times 1023 = 650,833 \rightarrow 651$
+   $ADC_{PC0-Sel} = \frac{V_{PC0-Sel}}{5}\times (2^{10}-1) = \frac{3,181}{5}\times 1023 = 650,833 \rightarrow 650$
    
    $ADC_{PC0-none} = \frac{V_{PC0-none}}{5}\times (2^{10}-1) = \frac{5}{5}\times 1023 = 1023$
    
