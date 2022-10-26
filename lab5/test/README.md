@@ -69,7 +69,7 @@ Consider an application for temperature measurement. Use analog temperature sens
    | Timer/Counter1 | 16 | 4m | 33m | -- | 262m | -- | **1s** | 4.2s |
    | Timer/Counter2 | 8  | 16u | 128u | 512u | 1m | 2m | 4m | 16m |
    
-   > I designed this flowchart on Wondershare EdrawMax software.
+   > I designed this flowchart on *Wondershare EdrawMax software*.
 
    >To resume the process, in the `main` loop, we have to initialize the LCD display, configure ADC and configure timer 1. 
    >The `TIMER1_OVF_vect` is launched by the interrupt service routine of timer 1 when it overflows. As we want to mesure the value of the temperature only every 30 seconds (and at the same time refresh the LCD display), we have to use a conditionnal statement with a counter as in the *lab4*. Every 30 seconds, we start the analog digital conversion (ADC) and when it's done, the ADC service routine will point on the `ADC_vect`. Finally, we have to read the ADC value (which is equal to $ADC = \frac{V_{TC1046}}{V_{REF}}\times (2^{10}-1)$. Then, we can convert it into temperature with the linear characteristic function of the TC1046 sensor (explained in the [datasheet](http://ww1.microchip.com/downloads/en/DeviceDoc/21496C.pdf)).
