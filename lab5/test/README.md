@@ -73,7 +73,7 @@ Consider an application for temperature measurement. Use analog temperature sens
 
    >To resume the process, in the `main` loop, we have to initialize the LCD display, configure ADC and configure timer 1. 
    >The `TIMER1_OVF_vect` is launched by the interrupt service routine of timer 1 when it overflows. As we want to mesure the value of the temperature only every 30 seconds (and at the same time refresh the LCD display), we have to use a conditionnal statement with a counter as in the *lab4*. Every 30 seconds, we start the analog digital conversion (ADC) and when it's done, the ADC service routine will point on the `ADC_vect`. Finally, we have to read the ADC value (which is equal to $ADC = \frac{V_{TC1046}}{V_{REF}}\times (2^{10}-1)$. Then, we can convert it into temperature with the linear characteristic function of the TC1046 sensor (explained in the [datasheet](http://ww1.microchip.com/downloads/en/DeviceDoc/21496C.pdf)).
->Finally, we use a conditionnal statement to see if the temperature is too high (in the flowchart, i named the maximum temperature `threshold` and if it is, we turn on LED1. We also convert the value to string and display it on the LCD display.
+   >Finally, we use a conditionnal statement to see if the temperature is too high (in the flowchart, i named the maximum temperature `threshold` and if it is, we turn on LED1. We also convert the value to string and display it on the LCD display.
    
    <img width="945" alt="Capture d’écran 2022-10-26 à 21 01 25" src="https://user-images.githubusercontent.com/114081879/198113870-4c3779b4-3f21-49ba-bfd7-f19e3ff89114.png">
 
