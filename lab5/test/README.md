@@ -69,4 +69,6 @@ Consider an application for temperature measurement. Use analog temperature sens
    | Timer/Counter1 | 16 | 4m | 33m | -- | 262m | -- | **1s** | 4.2s |
    | Timer/Counter2 | 8  | 16u | 128u | 512u | 1m | 2m | 4m | 16m |
    
-   ![your figure]()
+   <img width="945" alt="Capture d’écran 2022-10-26 à 21 01 25" src="https://user-images.githubusercontent.com/114081879/198113870-4c3779b4-3f21-49ba-bfd7-f19e3ff89114.png">
+
+  
