@@ -9,12 +9,12 @@ You will find on this repository the content of the DE2 course followed during m
 
    | **Push button** | **PC0[A0] voltage** | **ADC value (calculated)** | **ADC value (measured)** | **ADC value (measured, hex)** |
    | :-: | :-: | :-: | :-: | :-: |
-   | Right  | 0&nbsp;V | 0   | 0 | 0 |
-   | Up     | 0.495&nbsp;V | 101 |  |  |
-   | Down   | 1.203&nbsp;V | 246 |  |  |
-   | Left   | 1.970&nbsp;V | 403 |  |  |
-   | Select | 3.181&nbsp;V | 650 |  |  |
-   | none   | 5.0&nbsp;V| 1023 |  |  |
+   | Right  | 0&nbsp;V | 0   | 0 | 000 |
+   | Up     | 0.495&nbsp;V | 101 | 99 | 063 |
+   | Down   | 1.203&nbsp;V | 246 | 239 | 0EF |
+   | Left   | 1.970&nbsp;V | 403 | 409 | 199|
+   | Select | 3.181&nbsp;V | 650 | 640 | 280 |
+   | none   | 5.0&nbsp;V| 1023 | 1023 | 3FF |
    
    **Details about calculus :**
 
@@ -49,8 +49,7 @@ You will find on this repository the content of the DE2 course followed during m
    >
    ><img width="250" alt="Capture d’écran 2022-10-25 à 18 09 06" src="https://user-images.githubusercontent.com/114081879/197825912-c5a5daf5-b22e-4886-9e6d-312d1c9442b5.png">
 
-   
-
+ 
 ### Temperature meter
 
 Consider an application for temperature measurement. Use analog temperature sensor [TC1046](http://ww1.microchip.com/downloads/en/DeviceDoc/21496C.pdf), LCD, and a LED. Every 30 seconds, the temperature is measured and the value is displayed on LCD screen. When the temperature is too high, the LED will turn on.
