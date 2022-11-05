@@ -37,6 +37,7 @@
 
 ![wavedrom (1)](https://user-images.githubusercontent.com/114081879/200139182-02bc73e7-94f4-46a2-9389-34184121da9f.svg)
 
+>Here is the code I made on Wavedrom-editor to generate the 1st timing diagram.
 
 ```c
 {signal: [
