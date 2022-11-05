@@ -61,6 +61,8 @@
 
 ![wavedrom (2)](https://user-images.githubusercontent.com/114081879/200139354-72ee1e77-937b-453e-8439-75e41dd123ab.svg)
 
+
+
 3. Draw a flowchart for function `uint8_t get_parity(uint8_t data, uint8_t type)` which calculates a parity bit of input 8-bit `data` according to parameter `type`. The image can be drawn on a computer or by hand. Use clear descriptions of individual algorithm steps.
 >In this part, we want to calculate the parity bit of a 8 bit `data` according to parameter `type`. First of all, we have to sum the 8 bits of `data`. After, we use a conditional statement to determine of the `type` is odd or even. In the both cases, we need to use the modulo operator to know if the number of 1 is odd or even. Finally, we set the parity bit to the correct value according to the type and we return the value.
 
