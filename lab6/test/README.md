@@ -34,7 +34,9 @@
 
 >On the real UART link, all the characters `D`,`e`, `2` are sent one after one with 7O2 protocol, so I should represent all the `D`,`e`, `2` chronograms on the same axis (but it would be too long for the screen, that's why I used arrows).
 >If we are waiting to transmit data, the signal is in the high state and I have represented it here by the grey hatched signal for better readability.
-<img width="970" alt="Capture d’écran 2022-11-05 à 20 51 48" src="https://user-images.githubusercontent.com/114081879/200138413-556a5f78-f907-4e4b-a433-b612f2af15d1.png">
+
+![wavedrom (1)](https://user-images.githubusercontent.com/114081879/200139182-02bc73e7-94f4-46a2-9389-34184121da9f.svg)
+
 
 ```c
 {signal: [
