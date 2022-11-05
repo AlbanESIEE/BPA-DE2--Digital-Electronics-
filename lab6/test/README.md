@@ -25,6 +25,7 @@
 
 >For this question, I transmitt with UART three character data `De2` in 4800 `7O2` mode (7 data bits, odd parity, 2 stop bits). Also, I made the timing diagram on [WaveDrom](https://wavedrom.com/editor.html).
 >We transmit three characters `D`,`e`, `2` with a UART 7O2 link.
+
    | **Char** | **Decimal** | **Hexadecimal** | **Binary** |**Odd parity bit** |
    | :-: | :-: | :-: | :-: | :-: |
    | `D` | 68 | 0x44 | `0b100_0100` |1|
