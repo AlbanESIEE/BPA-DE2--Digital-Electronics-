@@ -33,6 +33,7 @@
    | `2` | 50 | 0x32 | `0b011_0010`|0|
 
 >On the real UART link, all the characters `D`,`e`, `2` are sent one after one with 7O2 protocol, so I should represent all the `D`,`e`, `2` chronograms on the same axis (but it would be too long for the screen, that's why I used arrows).
+>If we are waiting to transmit data, the signal is in the high state and I have represented it here by the grey hatched signal for better readability.
 <img width="970" alt="Capture d’écran 2022-11-05 à 20 51 48" src="https://user-images.githubusercontent.com/114081879/200138413-556a5f78-f907-4e4b-a433-b612f2af15d1.png">
 
 ```c
@@ -54,8 +55,6 @@
   ]
 }
 ```
-
-
 
 3. Draw a flowchart for function `uint8_t get_parity(uint8_t data, uint8_t type)` which calculates a parity bit of input 8-bit `data` according to parameter `type`. The image can be drawn on a computer or by hand. Use clear descriptions of individual algorithm steps.
 
