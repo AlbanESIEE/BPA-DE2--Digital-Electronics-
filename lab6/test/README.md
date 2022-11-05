@@ -35,7 +35,8 @@
 >On the real UART link, all the characters `D`,`e`, `2` are sent one after one with 7O2 protocol, so I should represent all the 
 <img width="970" alt="Capture d’écran 2022-11-05 à 20 51 48" src="https://user-images.githubusercontent.com/114081879/200138413-556a5f78-f907-4e4b-a433-b612f2af15d1.png">
 
-```{signal: [
+```j
+{signal: [
   {name: 'clock', wave: 'p.............'},
   
   {name: 'data char "D"', wave: '.1010..10.1.. ',node: '..............a'},
@@ -51,7 +52,7 @@
   edge: [
     'a-~>b', 'c-~>d'
   ]
-}```c
+}```
 
    ![your figure]()
 
