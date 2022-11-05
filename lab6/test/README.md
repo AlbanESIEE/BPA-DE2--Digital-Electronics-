@@ -57,6 +57,8 @@
   ]
 }
 ```
+>So if we transmit the characters 'D', 'E' and '2' one after the other, it gives the following timing diagram.
+![wavedrom (2)](https://user-images.githubusercontent.com/114081879/200139354-72ee1e77-937b-453e-8439-75e41dd123ab.svg)
 
 3. Draw a flowchart for function `uint8_t get_parity(uint8_t data, uint8_t type)` which calculates a parity bit of input 8-bit `data` according to parameter `type`. The image can be drawn on a computer or by hand. Use clear descriptions of individual algorithm steps.
 
