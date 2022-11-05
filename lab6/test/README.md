@@ -32,7 +32,26 @@
    | `e` | 101 | 0x65 | `0b110_0101`|1|
    | `2` | 50 | 0x32 | `0b011_0010`|0|
 
+>On the real UART link, all the characters `D`,`e`, `2` are sent one after one with 7O2 protocol, so I should represent all the 
 <img width="970" alt="Capture d’écran 2022-11-05 à 20 51 48" src="https://user-images.githubusercontent.com/114081879/200138413-556a5f78-f907-4e4b-a433-b612f2af15d1.png">
+
+```{signal: [
+  {name: 'clock', wave: 'p.............'},
+  
+  {name: 'data char "D"', wave: '.1010..10.1.. ',node: '..............a'},
+  {},
+  {},
+  {name: 'data char "e"', wave: '.101.0.101... ',node: 'b.............c'},
+  {},
+  {},
+  {name: 'data char "2"', wave: '.10.1.0.10.1. ',node: 'd.............e'},
+  {},
+  { name: "transmission typology",        wave: "x.34444444566x", data: ["start", "D0", "D1", "D2","D3","D4","D5","D6","parity","stop","stop"] },
+],
+  edge: [
+    'a-~>b', 'c-~>d'
+  ]
+}```c
 
    ![your figure]()
 
