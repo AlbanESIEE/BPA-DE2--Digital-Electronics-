@@ -57,7 +57,7 @@
   ]
 }
 ```
->So if we transmit the characters 'D', 'E' and '2' one after the other, it gives the following timing diagram.
+>So as we transmit the characters 'D', 'e' and '2' one after the other, it gives the following timing diagram (refer to figure 1 to have a bigger image, I decomposed the 'D', 'e', '2' transmission into three lines for more visibility.
 
 ![wavedrom (2)](https://user-images.githubusercontent.com/114081879/200139354-72ee1e77-937b-453e-8439-75e41dd123ab.svg)
 
