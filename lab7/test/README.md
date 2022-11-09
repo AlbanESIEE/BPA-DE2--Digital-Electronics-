@@ -11,6 +11,7 @@
    * external interrupt pins INT0, INT1
 
    ![your figure](images/arduino_uno_pinout.png)
+<img width="949" alt="Capture d’écran 2022-11-09 à 17 47 42" src="https://user-images.githubusercontent.com/114081879/200890456-10ffdcaf-94c2-49f3-a8cb-d8b41cb207dc.png">
 
 ### I2C communication
 
