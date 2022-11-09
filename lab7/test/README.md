@@ -21,7 +21,7 @@
 
 ![wavedrom](https://user-images.githubusercontent.com/114081879/200950462-fb356518-a88a-473f-804b-ef3c54345281.svg)
 
-
+>Here is the javascript code I used to generate the timing diagram.
 ```c
 {signal: [
 
