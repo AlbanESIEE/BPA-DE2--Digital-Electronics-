@@ -17,7 +17,28 @@
 
 2. Draw a timing diagram of I2C signals when calling function `rtc_read_years()`. Let this function reads one byte-value from RTC DS3231 address `06h` (see RTC datasheet) in the range `00` to `99`. Specify when the SDA line is controlled by the Master device and when by the Slave device. Draw the whole request/receive process, from Start to Stop condition. The image can be drawn on a computer (by [WaveDrom](https://wavedrom.com/) for example) or by hand. Name all parts of timing diagram.
 
-   ![your figure]()
+>I draw the timing diagram with [WaveDrom](https://wavedrom.com/), as for the previous lab.
+
+![wavedrom](https://user-images.githubusercontent.com/114081879/200950462-fb356518-a88a-473f-804b-ef3c54345281.svg)
+
+
+```c
+{signal: [
+
+  
+  {name: 'SDA', wave: '101.010........1.0..101.010..10....1.0.1.01'},
+  {},
+  {name: 'SCL', wave: '1.n..................0p..................1.'},
+  
+  { name: "transmission typology",        wave: "x5444444453444444453x544444445344444444453x", data: ["start","A6", "A5", "A4", "A3","A2","A1","A0","R/W","ACK","A6", "A5", "A4", "A3","A2","A1","A0","R/W","ACK","start","A6", "A5", "A4", "A3","A2","A1","A0","R/W","ACK","D7","D6", "D5", "D4", "D3","D2","D1","D0","R/W","NACK", "stop"] },
+
+  { name: "transmission typology",        wave: "x65.......75.......7x65.......75........76x", data: ["start","Slave address + W (0xD0) ", "ACK", "Register address + W (0x0C)","ACK","start","Slave address + R (0xD1)", "ACK","Read 1 byte from slave", "NACK", "stop"] },
+  { name: "master / slave control",        wave: "x5........55.......5x5.........5........5.x", data: ["M","S","M","S","S","S","M"] },
+
+]
+}
+```
+
 
 ### Meteo station
 
