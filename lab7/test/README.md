@@ -19,7 +19,7 @@
 
 >I draw the timing diagram with [WaveDrom](https://wavedrom.com/), as for the previous lab.
 
-![wavedrom](https://user-images.githubusercontent.com/114081879/200950462-fb356518-a88a-473f-804b-ef3c54345281.svg)
+![wavedrom](https://user-images.githubusercontent.com/114081879/201964081-5d611d69-cd82-4e48-97ba-fe000df40fcd.svg)
 
 >Here is the javascript code I used to generate the timing diagram.
 ```c
