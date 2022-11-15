@@ -19,7 +19,8 @@
 
 >I draw the timing diagram with [WaveDrom](https://wavedrom.com/), as for the previous lab.
 
-![wavedrom](https://user-images.githubusercontent.com/114081879/201964081-5d611d69-cd82-4e48-97ba-fe000df40fcd.svg)
+![wavedrom](https://user-images.githubusercontent.com/114081879/201964635-2692ffe0-4af0-4ef6-942e-2d9f9450514c.svg)
+
 
 >Here is the javascript code I used to generate the timing diagram.
 ```c
@@ -33,7 +34,7 @@
   { name: "transmission typology",        wave: "x5444444453444444453x544444445344444444453x", data: ["start","A6", "A5", "A4", "A3","A2","A1","A0","R/W","ACK","A6", "A5", "A4", "A3","A2","A1","A0","R/W","ACK","start","A6", "A5", "A4", "A3","A2","A1","A0","R/W","ACK","D7","D6", "D5", "D4", "D3","D2","D1","D0","R/W","NACK", "stop"] },
 
   { name: "transmission typology",        wave: "x65.......75.......7x65.......75........76x", data: ["start","Slave address + W (0xD0) ", "ACK", "Register address + W (0x0C)","ACK","start","Slave address + R (0xD1)", "ACK","Read 1 byte from slave", "NACK", "stop"] },
-  { name: "master / slave control",        wave: "x5........55.......5x5.........5........5.x", data: ["M","S","M","S","S","S","M"] },
+  { name: "master / slave control",        wave: "x5........55.......5x5........55........5.x", data: ["M","S","M","S","M","S","S","M"] },
 
 ]
 }
