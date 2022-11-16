@@ -4,24 +4,38 @@
 
 1. Complete the conversion table with selected instructions:
 
-    *ADD  *
+    **ADD**
     add r24, r0
     0000 11rd dddd rrr
     d=24 --> 1 1000 in binary
     r=0  --> 0 0000 in binary
 
-    *COM Rd*
+    **COM Rd**
     com r26
     1001 010d dddd 0000
     d=26 --> 1 1010 in binary
-
+    
+    **EOR Rd,Rr**
+    eor r26, r27
+    0010	01rd	dddd	rrrr
+    d=26 --> 1 1010 in binary
+    r=27 --> 1 1011 in binary
+   
+    **MUL Rd,Rr**
+    mul r22, r20
+    1001	11rd	dddd  rrrr
+    d=22 --> 1 0110 in binary
+    r=20 --> 1 0100 in binary
+    
+    
    | **Instruction** | **Binary opcode** | **Hex opcode** | **Compiler Hex opcode** |
    | :-- | :-: | :-: | :-: |
    | `add r24, r0` | 0000 1101 1000 0000 | 0d80 |  | 
-   | `com r26` | 1001 0101 1010 0000 |  |  |
-   | `eor r26, r27` |  |  |  |
-   | `mul r22, r20` |  |  |  |
+   | `com r26` | 1001 0101 1010 0000 | 95A0 |  |
+   | `eor r26, r27` | 0010 0111 1010 1011 | 27AB |  |
+   | `mul r22, r20` | 1001 1111 0110 0100 | 9F64 |  |
    | `ret` | `1001_0101_0000_1000` | `95 08` |  |
+   
 
 ### 4-bit LFSR
 
