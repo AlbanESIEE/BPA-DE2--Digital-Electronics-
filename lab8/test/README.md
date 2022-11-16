@@ -5,9 +5,13 @@
 1. Complete the conversion table with selected instructions:
 
     **ADD**
+    
     add r24, r0
+    
     0000 11rd dddd rrr
+    
     d=24 --> 1 1000 in binary
+    
     r=0  --> 0 0000 in binary
 
     **COM Rd**
@@ -16,9 +20,13 @@
     d=26 --> 1 1010 in binary
     
     **EOR Rd,Rr**
+    
     eor r26, r27
+    
     0010	01rd	dddd	rrrr
+    
     d=26 --> 1 1010 in binary
+    
     r=27 --> 1 1011 in binary
    
     **MUL Rd,Rr**
