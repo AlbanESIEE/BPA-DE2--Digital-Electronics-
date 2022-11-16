@@ -15,8 +15,11 @@
     r=0  --> 0 0000 in binary
 
     **COM Rd**
+    
     com r26
+    
     1001 010d dddd 0000
+    
     d=26 --> 1 1010 in binary
     
     **EOR Rd,Rr**
@@ -30,9 +33,13 @@
     r=27 --> 1 1011 in binary
    
     **MUL Rd,Rr**
+    
     mul r22, r20
+    
     1001	11rd	dddd  rrrr
+    
     d=22 --> 1 0110 in binary
+    
     r=20 --> 1 0100 in binary
     
     
