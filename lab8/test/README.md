@@ -31,9 +31,9 @@
 
    | **Tap position** | **Generated values** | **Length** |
    | :-: | :-- | :-: |
-   | 4, 3 |  |  |
-   | 4, 2 |  |  |
-   | 4, 1 |  |  |
+   | 4, 3 | 0 1 3 7 14 13 11 6 12 9 2 5 10 4 8 Length :15 |  |
+   | 4, 2 | 0 1 3 6 12 8 Length :6|  |
+   | 4, 1 | 0 1 2 5 10 4 9 3 6 13 11 7 14 12 8 Length :15 |  |
 
 ### Variable number of short pulses
 

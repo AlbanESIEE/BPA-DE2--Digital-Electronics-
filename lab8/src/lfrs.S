@@ -52,14 +52,14 @@
 lfsr4_fibonacci_asm:
     push temp0             ; Save used registers on Stack
     push temp1
-    bst in_out_reg, 6      ; Copy FIRST tap to T-flag bit...
+    bst in_out_reg, 3      ; Copy FIRST tap to T-flag bit...
     bld temp0, 0           ; ...and then to temp0 at position 0
                            ; temp0:                        0
                            ; +---+---+---+---+---+---+---+---+
                            ; | x | x | x | x | x | x | x | 4 |
                            ; +---+---+---+---+---+---+---+---+
 
-    bst in_out_reg, 5      ; Copy SECOND tap to T-flag bit...
+    bst in_out_reg, 0      ; Copy SECOND tap to T-flag bit...
     bld temp1, 0           ; ...and then to temp1 at position 0
                            ; temp1:                        0
                            ; +---+---+---+---+---+---+---+---+
@@ -79,7 +79,7 @@ lfsr4_fibonacci_asm:
                            ; +---+---+---+---+---+---+---+---+
                            ; | x | x | x | 3 | 2 | 1 | 0 | C | <-- C
                            ; +---+---+---+---+---+---+---+---+
-    andi in_out_reg, 0b01111111  ; Need only 4-bit, so clear four upper bits
+    andi in_out_reg, 0b00001111  ; Need only 4-bit, so clear four upper bits
                            ; in_out_reg:       3   2   1   0
                            ; +---+---+---+---+---+---+---+---+
                            ; | 0 | 0 | 0 | 0 | 2 | 1 | 0 | C |
