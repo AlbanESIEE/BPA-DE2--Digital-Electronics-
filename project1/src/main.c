@@ -80,26 +80,32 @@ ISR(TIMER1_OVF_vect)
 {
     static uint8_t no_of_overflows = 0;
     no_of_overflows++;
+    // Do this every 3 x 33 ms = 100 ms
     if (no_of_overflows >= 3)
     {
-        // Do this every 3 x 33 ms = 100 ms
         no_of_overflows = 0;
-
+        /*
+        We have to read different analog values from ADC. We have to change mux registers in time to change the pin we are reading.
+        So, for example, in fisrt we read ADC0, and we switch to mux1 (ADC1). Finally, we switch to mux2 (ADC2).
+        */
         switch (mux)
         {
         case 0:
           // Select input channel ADC0 (voltage divider pin)
           ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1| 1<<MUX0);
+          // Switching for ADC1 at the next TIMER1_OVF_vect
           mux = 1;
           break;
         case 1:
           // Select input channel ADC1 (voltage divider pin)
           ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1); ADMUX|= (1<<MUX0);
+          // Switching for ADC2 at the next TIMER1_OVF_vect
           mux=2;
           break;
         case 2:
           // Select input channel ADC2 (voltage divider pin)
           ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX0); ADMUX|= (1<<MUX1);
+          // Switching for ADC0 at the next TIMER1_OVF_vect
           mux=0;
           break;
         }
@@ -117,7 +123,10 @@ ISR(TIMER1_OVF_vect)
 ISR(ADC_vect)
 {
 
-    // If we are using the 2nd multiplexer (mux 1), we are reading the x value
+    /* In this case, (mux=1), that means that we have selected input channel ADC1. 
+       So, we have to read the value from ADC and store it in our valuex variable.
+       This value corresponds to x axis variations (range : 0-1023).
+    */
     if(mux == 1){
       // Read value for x axis of Joystick
       uint16_t valuex;
@@ -136,7 +145,10 @@ ISR(ADC_vect)
 
     }
 
-    // If we are using the 1st multiplexer (mux 0), we are reading the x value
+    /* In this case, (mux=0), that means that we have selected input channel ADC0. 
+       So, we have to read the value from ADC and store it in our valuex variable.
+       This value corresponds to y axis variations (range : 0-1023).
+    */
     if(mux==0){
       // Select input channel ADC0 (voltage divider pin)
       ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1| 1<<MUX0);
@@ -158,6 +170,10 @@ ISR(ADC_vect)
 
     }
 
+    /* In this case, (mux=1), that means that we have selected input channel ADC2. 
+       So, we have to read the value from ADC and store it in our valueclick variable.
+       This value corresponds to button pressed from joystick (0 or 1023).
+    */
     if(mux == 2){
       uint16_t valueclick;
       char string[4];  // String for converted numbers by itoa()
