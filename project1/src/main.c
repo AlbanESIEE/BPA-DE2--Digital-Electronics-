@@ -21,8 +21,17 @@
 #include "timer.h"          // Timer library for AVR-GCC
 #include <lcd.h>            // Peter Fleury's LCD library
 #include <stdlib.h>         // C library. Needed for number conversions
+#include <uart.h>           // Peter Fleury's UART library
 
-uint8_t mux = 0;
+/* Declaration of variables -------------------------------------------*/
+/***********************************************************************/
+uint8_t mux = 0;            // Variable uint8_t mux for switching ADC mux.
+uint32_t password = 0;      // Password entered is set here.
+
+uint16_t valuex;            // Value for x axis of Joystick
+uint16_t valuey;            // Value for y axis of Joystick
+uint16_t valueclick;        // Value for click from Joystick
+
 
 /* Function definitions ----------------------------------------------*/
 /**********************************************************************
@@ -35,7 +44,22 @@ int main(void)
 {
     // Initialize display
     lcd_init(LCD_DISP_ON);
-    
+
+    // Initialize USART to asynchronous, 8N1, 9600
+    uart_init(UART_BAUD_SELECT(9600, F_CPU));
+
+    /*
+    if (mux == 8){
+      // Configure Analog-to-Digital Convertion unit
+      // Internal 1.1V Voltage Reference with external capacitor at AREF pin
+      ADMUX = ADMUX |= (1<<REFS0)|(1<<REFS1);
+    }
+    else {
+      // Configure Analog-to-Digital Convertion unit
+      // Select ADC voltage reference to "AVcc with external capacitor at AREF pin"
+      ADMUX = ADMUX | (1<<REFS0);
+    }*/
+
     // Configure Analog-to-Digital Convertion unit
     // Select ADC voltage reference to "AVcc with external capacitor at AREF pin"
     ADMUX = ADMUX | (1<<REFS0);
@@ -98,15 +122,25 @@ ISR(TIMER1_OVF_vect)
           // Switching for ADC1 at the next TIMER1_OVF_vect
           mux = 1;
           break;
+
         case 1:
           // Select input channel ADC1 (voltage divider pin)
           ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1); ADMUX|= (1<<MUX0);
           // Switching for ADC2 at the next TIMER1_OVF_vect
           mux=2;
           break;
+
         case 2:
           // Select input channel ADC2 (voltage divider pin)
           ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX0); ADMUX|= (1<<MUX1);
+          // Switching for ADC8 at the next TIMER1_OVF_vect
+          mux=8;
+          break;
+        
+        case 8:
+          // Select input channel ADC8 (embedded temperature sensor)
+          // See datasheet of ATMEGA328P, page 256 
+          ADMUX = ADMUX & ~(1<<MUX2 | 1<<MUX1| 1<<MUX0); ADMUX|= (1<<MUX3);
           // Switching for ADC0 at the next TIMER1_OVF_vect
           mux=0;
           break;
@@ -127,8 +161,6 @@ ISR(ADC_vect)
        This value corresponds to x axis variations (range : 0-1023).
     */
     if(mux == 1){
-      // Read value for x axis of Joystick
-      uint16_t valuex;
       // String for converted numbers by itoa()
       char string[4];  
       // Display text on lcd.
@@ -145,7 +177,6 @@ ISR(ADC_vect)
       // Display value on lcd.
       lcd_gotoxy(6,0);
       lcd_puts(string);
-
     }
 
     /* In this case, (mux=0), that means that we have selected input channel ADC0. 
@@ -156,8 +187,6 @@ ISR(ADC_vect)
       // Select input channel ADC0 (voltage divider pin)
       ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1| 1<<MUX0);
 
-      // Read value for y axis of Joystick
-      uint16_t valuey;
       char string[4];  // String for converted numbers by itoa()
       lcd_gotoxy(0,1);
       lcd_puts("val y");
@@ -170,8 +199,9 @@ ISR(ADC_vect)
       lcd_puts("     ");
       lcd_gotoxy(6,1);
       lcd_puts(string);
-
+      
     }
+
 
     /* In this case, (mux=1), that means that we have selected input channel ADC2. 
        So, we have to read the value from ADC and store it in our valueclick variable.
@@ -180,7 +210,6 @@ ISR(ADC_vect)
        --> If the button is pressed : <200 (LOW state).
     */
     if(mux == 2){
-      uint16_t valueclick;
       char string[4];  // String for converted numbers by itoa()
       valueclick = ADC;
       // Button pressed 
@@ -195,61 +224,19 @@ ISR(ADC_vect)
       }
     }
 
+    if(mux==8){
+      uint32_t temperature;
+      char string[4];  // String for converted numbers by itoa()
+      uint32_t value = ADC;  
+      uint32_t voltage = (value*1.1)/1023;
+      temperature = (voltage*942.49)-272.39;
 
+      //temperature = 1.01*value - 252.39;
 
+      //temperature = (temperature - 324.31)/1.22;
+      itoa(temperature, string, 10);
+      uart_puts("\n");
+      uart_puts(string);
 
-
-    /*
-    // Read converted value
-    // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
-    value = ADC;
-    // Convert "value" to "string" and display it
-    itoa(value, string, 10);
-    lcd_gotoxy(8,0);
-    lcd_puts("      ");
-    lcd_gotoxy(8,0);
-    lcd_puts(string);
-    //hexa 
-    itoa(value, string, 16);
-    lcd_gotoxy(13,0);
-    lcd_puts("      ");
-    lcd_gotoxy(13,0);
-    lcd_puts(string);
-
-    if(value <= 5) {
-      lcd_gotoxy(8,1);
-      lcd_puts("       ");
-      lcd_gotoxy(8,1);
-      lcd_puts("Right");
     }
-    if(value <= 110 && value >= 90) {
-      lcd_gotoxy(8,1);
-      lcd_puts("       ");
-      lcd_gotoxy(8,1);
-      lcd_puts("Up");
-    }
-    if(value <= 300 && value >= 200) {
-      lcd_gotoxy(8,1);
-      lcd_puts("       ");
-      lcd_gotoxy(8,1);
-      lcd_puts("Down");
-    }
-    if(value <= 420 && value >= 385) {
-      lcd_gotoxy(8,1);
-      lcd_puts("       ");
-      lcd_gotoxy(8,1);
-      lcd_puts("Left");
-    }
-    if(value <= 700 && value >= 600) {
-      lcd_gotoxy(8,1);
-      lcd_puts("       ");
-      lcd_gotoxy(8,1);
-      lcd_puts("Select");
-    }
-    if(value >= 900) {
-      lcd_gotoxy(8,1);
-      lcd_puts("       ");
-      lcd_gotoxy(8,1);
-      lcd_puts("none");
-    }*/
 }
