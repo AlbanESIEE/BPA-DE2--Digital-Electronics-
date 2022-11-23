@@ -9,6 +9,8 @@
  * Dept. of Radio Electronics, Brno University of Technology, Czechia
  * This work is licensed under the terms of the MIT license.
  * 
+ * This program has been updaped by  Alban FERRACANI and Lucas LACROIX.
+ * 
  **********************************************************************/
 
 
@@ -109,12 +111,10 @@ ISR(TIMER1_OVF_vect)
           mux=0;
           break;
         }
-
         // Start ADC conversion
         ADCSRA = ADCSRA | (1<<ADSC);
     }    
 }
-
 
 /**********************************************************************
  * Function: ADC complete interrupt
@@ -122,7 +122,6 @@ ISR(TIMER1_OVF_vect)
  **********************************************************************/
 ISR(ADC_vect)
 {
-
     /* In this case, (mux=1), that means that we have selected input channel ADC1. 
        So, we have to read the value from ADC and store it in our valuex variable.
        This value corresponds to x axis variations (range : 0-1023).
@@ -130,7 +129,9 @@ ISR(ADC_vect)
     if(mux == 1){
       // Read value for x axis of Joystick
       uint16_t valuex;
-      char string[4];  // String for converted numbers by itoa()
+      // String for converted numbers by itoa()
+      char string[4];  
+      // Display text on lcd.
       lcd_gotoxy(0,0);
       lcd_puts("val x");
       // Read converted value
@@ -139,7 +140,9 @@ ISR(ADC_vect)
       // Convert "value" to "string" and display it
       itoa(valuex, string, 10);
       lcd_gotoxy(6,0);
+      //To erease previous value on LCD.
       lcd_puts("     ");
+      // Display value on lcd.
       lcd_gotoxy(6,0);
       lcd_puts(string);
 
@@ -173,20 +176,28 @@ ISR(ADC_vect)
     /* In this case, (mux=1), that means that we have selected input channel ADC2. 
        So, we have to read the value from ADC and store it in our valueclick variable.
        This value corresponds to button pressed from joystick (0 or 1023).
+       --> If the button is not pressed : 1023 (HIGH state).
+       --> If the button is pressed : <200 (LOW state).
     */
     if(mux == 2){
       uint16_t valueclick;
       char string[4];  // String for converted numbers by itoa()
       valueclick = ADC;
-      if (valueclick >1000){ 
+      // Button pressed 
+      if (valueclick < 200){ 
           lcd_gotoxy(11,0);
           lcd_puts("click");
       }
-      else if (valueclick <= 1000){ 
+      // Button not pressed
+      else { 
           lcd_gotoxy(11,0);
           lcd_puts("     ");
       }
     }
+
+
+
+
 
     /*
     // Read converted value
