@@ -71,7 +71,7 @@ Insert descriptive text and schematic(s) of your implementation.
 
 Put flowchats of your algorithm(s). Write descriptive text of your libraries and source files. Put direct links to these files in `src` or `lib` folders.
 
->We used [doxygen](https://doxygen.nl/) tool to generate $\Latex$ and `html` documentation of the project.
+>We used [doxygen](https://doxygen.nl/) tool to generate $\LaTeX$ and `html` documentation of the project.
 
 [refman.pdf](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/files/10087620/refman.pdf)
 
