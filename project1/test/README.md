@@ -36,7 +36,7 @@ The goal of the project is cooperation in pairs, further study of the topic, des
 
 Insert descriptive text and schematic(s) of your implementation.
 
-Here is a schematics of the project implementation we designed with EasyEda.
+>Here is a schematics of the project implementation we designed with `EasyEda`.
 ![project](https://user-images.githubusercontent.com/114081879/203870031-c122c04f-a4bb-45ab-9847-a770181ee708.svg)
 
 ## Software description
