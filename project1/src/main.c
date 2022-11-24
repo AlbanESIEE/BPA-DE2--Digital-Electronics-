@@ -87,8 +87,7 @@ void display_temperature_target(uint8_t room, uint16_t temperature){
 /**********************************************************************
  * Function: Display instructions on LCD
  * Purpose:  Display instructions on LCD if the push button of the 
- * rotary encoder is pressed. 
- * 
+ *           rotary encoder is pressed. 
  **********************************************************************/
 
 void display_instructions(){
@@ -102,8 +101,8 @@ void display_instructions(){
 
 /**********************************************************************
  * Function: Read value of rotary encoder
- * Purpose:  Read value of rotary encoder and select the room in function of rotation.
- * 
+ * Purpose:  Read value of rotary encoder and select the room in  
+ *           function of rotation.
  **********************************************************************/
 void read_rotary_encoder(){
     // Reading current value of CLK, DATA and PUSH signals from rotary encoder.
