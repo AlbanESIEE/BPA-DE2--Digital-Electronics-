@@ -44,7 +44,7 @@ Insert descriptive text and schematic(s) of your implementation.
 >In the following tab, we have mapped sensors pins to Arduino Board pins. The Arduino Uno board pinout is [accessible here](https://docs.arduino.cc/static/6ec5e4c2a6c0e9e46389d4f6dc924073/4ef49/Pinout-UNOrev3_latest.png). We also describe from the `ATMEGA328` point of view if connections are configured as inputs or outputs (I/O).
 >We use severals documentations and datashets : 
 >- Documentation of `Digilent PmodCLP LCD` module is [available here](https://digilent.com/reference/_media/pmod:pmod:pmodCLP_rm.pdf).
->- Documentation of `rotary encode`r` (with very clear animations and schematics) is [available here](https://lastminuteengineers.com/rotary-encoder-arduino-tutorial/).
+>- Documentation of `rotary encoder` (with very clear animations and schematics) is [available here](https://lastminuteengineers.com/rotary-encoder-arduino-tutorial/).
 >- Documentation of `analog joystick` (with very clear animations and schematics) is [available here](https://lastminuteengineers.com/joystick-interfacing-arduino-processing/).
 
 
