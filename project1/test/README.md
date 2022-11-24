@@ -40,21 +40,21 @@ Insert descriptive text and schematic(s) of your implementation.
 >The LCD module is wired in the same way as in [Tomas Fryza PCB shields schematic](https://oshwlab.com/tomas.fryza/arduino-shields).
 
 
-|Sensor|Sensor PIN |Arduino PIN |Comment|
+|Sensor|Sensor PIN |Arduino PIN | Arduino I/O|
 | :-- | :-: | :-: | :-: |
-| Joystick| `VRX` | `PC0` | |
-| Joystick| `VRY` | `PC1` | |
-| Joystick| `SW` | `PC2` | |
-| Rotary encoder| `CLK` | `PB4` | |
-| Rotary encoder| `DAT` | `PB5` | |
-| Rotary encoder| `SW` | `PB6` | |
-| LCD module| `E` | `PB1` | |
-| LCD module| `R` | `GND` | We only write |
-| LCD module| `RS` | `PB0` | |
-| LCD module| `DB4` | `PB4` | |
-| LCD module| `DB5` | `PB5` | |
-| LCD module| `DB6` | `PB6` | |
-| LCD module| `DB7` | `PB7` | |
+| Joystick| `VRX` | `PC0` | Input - analog |
+| Joystick| `VRY` | `PC1` | Input - analog |
+| Joystick| `SW` | `PC2` | Input (analog or digital) |
+| Rotary encoder| `CLK` | `PB4` | Input - digital |
+| Rotary encoder| `DAT` | `PB5` | Input - digital|
+| Rotary encoder| `SW` | `PB6` |Input - digital|
+| LCD module| `E` | `PB1` | Output - digital|
+| LCD module| `R` | `GND` | |
+| LCD module| `RS` | `PB0` | Output - digital |
+| LCD module| `DB4` | `PB4` | Output - digital |
+| LCD module| `DB5` | `PB5` | Output - digital |
+| LCD module| `DB6` | `PB6` | Output - digital |
+| LCD module| `DB7` | `PB7` | Output - digital |
 
 
 ![project](https://user-images.githubusercontent.com/114081879/203870031-c122c04f-a4bb-45ab-9847-a770181ee708.svg)
