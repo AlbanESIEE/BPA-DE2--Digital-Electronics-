@@ -41,7 +41,7 @@ Insert descriptive text and schematic(s) of your implementation.
 
 
 |Sensor|Sensor PIN |Arduino PIN |Comment|
-| :-- | :-: | :-: |
+| :-- | :-: | :-: | :-: |
 | Joystick| `VRX` | `PC0` | |
 | Joystick| `VRY` | `PC1` | |
 | Joystick| `SW` | `PC2` | |
