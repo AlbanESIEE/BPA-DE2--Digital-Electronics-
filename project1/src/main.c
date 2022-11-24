@@ -24,7 +24,6 @@
 #include <uart.h>           // Peter Fleury's UART library
 
 /* Declaration of variables -------------------------------------------*/
-/***********************************************************************/
 uint8_t mux = 0;            // Variable uint8_t mux for switching ADC mux.
 uint32_t password = 0;      // Password entered is set here.
 
@@ -36,7 +35,82 @@ uint32_t temperature_room1 = 20;   // Value with wanted temperature room1
 uint32_t temperature_room2 = 20;   // Value with wanted temperature room2
 uint8_t room = 1;                  // Select the room
 
+uint8_t rotary_CLK_state = 0; 
+uint8_t rotary_DATA_state = 0; 
+uint8_t rotary_PUSH_state = 0; 
+uint8_t rotary_CLK_last_state; 
+uint8_t rotary_counter = 0; 
+
+/* Defines -----------------------------------------------------------*/
+#define ROTARY_CLK PB4             // Output signal CLK from rotary encoder
+#define ROTARY_DATA PB5            // Output signal DATA from rotary encoder
+#define ROTARY_PUSH PB6            // Output signal PUSH from rotary encoder
+
+
 /* Function definitions ----------------------------------------------*/
+/**********************************************************************
+ * Function: Display target temperature on LCD. 
+ * Purpose:  Display converted value on LCD screen.
+ * @param temperature temperature target to display.
+ **********************************************************************/
+void display_temperature_target(uint8_t room, uint16_t temperature){
+    
+    char string[4];  // String for converted numbers by itoa()
+
+    if(room == 1){
+      lcd_clrscr();                   // We clear the display.
+      lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
+      lcd_puts("Room 1 - target");
+      lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
+      lcd_puts("Temp : ");
+      lcd_gotoxy(7, 1);
+      itoa(temperature, string, 10);        
+    }
+
+    else if (room == 2){
+      lcd_clrscr();                   // We clear the display.
+      lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
+      lcd_puts("Room 2 - target");
+      lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
+      lcd_puts("Temp : ");
+      lcd_gotoxy(7, 1);
+      itoa(temperature, string, 10); 
+    }
+}
+
+/**********************************************************************
+ * Function: Read value of rotary encoder
+ * Purpose:  Read value of rotary encoder and select the room in function of rotation.
+ * 
+ **********************************************************************/
+void read_rotary_encoder(){
+    // Reading current value of CLK, DATA and PUSH signals from rotary encoder.
+    rotary_CLK_state = GPIO_read(&PINB, ROTARY_CLK);      
+    rotary_DATA_state = GPIO_read(&PORTB, ROTARY_DATA);   
+    rotary_PUSH_state = GPIO_read(&PORTB, ROTARY_PUSH);
+
+    // If the initial clock value is not the same than the previous, that means 
+    // the encoder has been turned (the direction of rotation is not yet taken into account).
+    if(rotary_CLK_state != rotary_CLK_last_state){
+        // If the DATA state is different from CLK state, we are turning clockwise.
+        // So, we switch the counter (which corresponds to the room number to 1).
+        // If we had more than two rooms, we should increment or decrement the counter to have
+        // more than two states.
+        if(rotary_DATA_state != rotary_CLK_state){
+          rotary_counter = 1; 
+          room = 1;
+        }
+        // If the DATA state is equal to CLK state, we are turning counterclockwise.
+        // So, we switch the counter (which corresponds to the room number to 0).
+        else {
+          rotary_counter = 0; 
+          room = 0; 
+        }
+    }
+    // We update the value of CLK last state by the new one read.
+    rotary_CLK_last_state = rotary_CLK_state; 
+}
+
 /**********************************************************************
  * Function: Main function where the program execution begins
  * Purpose:  Use Timer/Counter1 and start ADC conversion every 100 ms.
@@ -87,6 +161,14 @@ int main(void)
 
     // Enables interrupts by setting the global interrupt mask
     sei();
+
+    // Set GPIO pins of rotary encoder as input (with embedded input pullup resistor)
+    GPIO_mode_input_pullup(&DDRB, ROTARY_CLK);
+    GPIO_mode_input_pullup(&DDRB, ROTARY_DATA);
+    GPIO_mode_input_pullup(&DDRB, ROTARY_PUSH);
+
+    // Reading initial state of CLK signal from rotary encoder
+    rotary_CLK_last_state = GPIO_read(&PORTB, ROTARY_CLK);
 
     // Infinite loop
     while (1)
@@ -144,9 +226,10 @@ ISR(TIMER1_OVF_vect)
         /* Set the target temperature with y axis of joystick for big increase/decrease.
            Adjust precisely temperature with the  x axis of the joystick.
         
-                     -------------------
-                     | Temperature set |
-                     -------------------
+            
+              ---------------------------------
+              | Temperature set with joystick |
+              ---------------------------------
 
                            + 2°C
                             | |          
@@ -160,8 +243,39 @@ ISR(TIMER1_OVF_vect)
                            -2°C  \
                                   y axis 
         */
+        
+        
+        
+        /* Calling the function read_rotary_encoder() which defines the room to display and set in 
+        function of the rotation direction of encoder.
 
+              -----------------------------------
+              | Select room with rotary encoder |
+              -----------------------------------
+        
 
+                    ROTATION      |  
+                                  |  --> Select room n°1
+                    clockwise     |  
+              >>>------>>>--------->>>--------->>>
+
+                    ..............
+                  ..................
+                 ...              ...
+                ....    ROTARY    ....
+                ....    ENCODER   ....
+                 ...              ...
+                  ..................
+                    ..............
+                  
+
+                    ROTATION         |  
+                                     |  --> Select room n°0
+                    counterclockwise |  
+              <<<------<<<---------<<<---------<<<
+        */
+        read_rotary_encoder(); 
+        
         /*
         If the user has selected the room 1 with the rotary encoder, 
         the lcd displays room1 target and the user can change temperature with the
@@ -302,35 +416,4 @@ ISR(ADC_vect)
       }
     }
 
-}
-
-/**********************************************************************
- * Function: Display target temperature on LCD. 
- * Purpose:  Display converted value on LCD screen.
- * @param temperature temperature target to display.
- * 
- **********************************************************************/
-void display_temperature_target(uint8_t room, uint16_t temperature){
-    
-    char string[4];  // String for converted numbers by itoa()
-
-    if(room == 1){
-      lcd_clrscr();                   // We clear the display.
-      lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
-      lcd_puts("Room 1 - target");
-      lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
-      lcd_puts("Temp : ");
-      lcd_gotoxy(7, 1);
-      itoa(temperature, string, 10);        
-    }
-
-    else if (room == 2){
-      lcd_clrscr();                   // We clear the display.
-      lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
-      lcd_puts("Room 2 - target");
-      lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
-      lcd_puts("Temp : ");
-      lcd_gotoxy(7, 1);
-      itoa(temperature, string, 10); 
-    }
 }
