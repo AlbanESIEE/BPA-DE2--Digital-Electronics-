@@ -39,7 +39,14 @@ Insert descriptive text and schematic(s) of your implementation.
 >Here is a schematic of the project implementation we designed with `EasyEda`. For this project, we use one analog joy-stick (2 ADC channels, 1 push button), rotary encoder (with active low push button), and one Digilent PmodCLP LCD module.
 >The LCD module is wired in the same way as in [Tomas Fryza PCB shields schematic](https://oshwlab.com/tomas.fryza/arduino-shields).
 
+![project](https://user-images.githubusercontent.com/114081879/203870031-c122c04f-a4bb-45ab-9847-a770181ee708.svg)
+
 >In the following tab, we have mapped sensors pins to Arduino Board pins. The Arduino Uno board pinout is [accessible here](https://docs.arduino.cc/static/6ec5e4c2a6c0e9e46389d4f6dc924073/4ef49/Pinout-UNOrev3_latest.png). We also describe from the `ATMEGA328` point of view if connections are configured as inputs or outputs (I/O).
+
+- Documentation of Digilent PmodCLP LCD module is [available here](https://digilent.com/reference/_media/pmod:pmod:pmodCLP_rm.pdf).
+- Documentation of rotary encoder (with very clear animations and schematics) is [available here](https://lastminuteengineers.com/rotary-encoder-arduino-tutorial/).
+- Documentation of analog joystick (with very clear animations and schematics) is [available here](https://lastminuteengineers.com/joystick-interfacing-arduino-processing/).
+
 
 |Sensor|Sensor PIN |Arduino PIN | Arduino I/O|
 | :-- | :-: | :-: | :-- |
@@ -58,7 +65,6 @@ Insert descriptive text and schematic(s) of your implementation.
 | LCD module| `DB7` | `PB7` | Output - digital |
 
 
-![project](https://user-images.githubusercontent.com/114081879/203870031-c122c04f-a4bb-45ab-9847-a770181ee708.svg)
 
 
 ## Software description
