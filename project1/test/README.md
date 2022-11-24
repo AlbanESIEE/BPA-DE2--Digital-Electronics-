@@ -29,15 +29,23 @@ The goal of the project is cooperation in pairs, further study of the topic, des
 
 ### Team members
 
-* Alban FERRACANI
-* Lucas LACROIX
+* Alban FERRACANI, 252498@vutbr.cz
+* Lucas LACROIX, 252503@vutbr.cz
 
 ## Hardware description
 
 Insert descriptive text and schematic(s) of your implementation.
 
->Here is a schematics of the project implementation we designed with `EasyEda`.
+>Here is a schematics of the project implementation we designed with `EasyEda`. For this project, we use one analog joy-stick (2 ADC channels, 1 push button), rotary encoder (with active low push button), and one Digilent PmodCLP LCD module.
+>The LCD module is wired in the same way as in [Tomas Fryza PCB shields schematic](https://oshwlab.com/tomas.fryza/arduino-shields).
+
+
+|Sensor|Arduino board|Comment|
+|||
+|||
+
 ![project](https://user-images.githubusercontent.com/114081879/203870031-c122c04f-a4bb-45ab-9847-a770181ee708.svg)
+
 
 ## Software description
 
