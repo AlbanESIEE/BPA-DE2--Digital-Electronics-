@@ -32,6 +32,9 @@ uint16_t valuex;            // Value for x axis of Joystick
 uint16_t valuey;            // Value for y axis of Joystick
 uint16_t valueclick;        // Value for click from Joystick
 
+uint32_t temperature_room1 = 20;   // Value with wanted temperature room1
+uint32_t temperature_room2 = 20;   // Value with wanted temperature room2
+uint8_t room = 1;                  // Select the room
 
 /* Function definitions ----------------------------------------------*/
 /**********************************************************************
@@ -134,19 +137,94 @@ ISR(TIMER1_OVF_vect)
           // Select input channel ADC2 (voltage divider pin)
           ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX0); ADMUX|= (1<<MUX1);
           // Switching for ADC8 at the next TIMER1_OVF_vect
-          mux=8;
-          break;
-        
-        case 8:
-          // Select input channel ADC8 (embedded temperature sensor)
-          // See datasheet of ATMEGA328P, page 256 
-          ADMUX = ADMUX & ~(1<<MUX2 | 1<<MUX1| 1<<MUX0); ADMUX|= (1<<MUX3);
-          // Switching for ADC0 at the next TIMER1_OVF_vect
           mux=0;
           break;
         }
-        // Start ADC conversion
-        ADCSRA = ADCSRA | (1<<ADSC);
+
+        /* Set the target temperature with y axis of joystick for big increase/decrease.
+           Adjust precisely temperature with the  x axis of the joystick.
+        
+                     -------------------
+                     | Temperature set |
+                     -------------------
+
+                           + 2°C
+                            | |          
+                            | |        
+                            | |       
+                   ..................... x axis 
+            -0.5°C ..................... +0.5°C
+                            | | 
+                            | | 
+                            | | \
+                           -2°C  \
+                                  y axis 
+        */
+
+
+        /*
+        If the user has selected the room 1 with the rotary encoder, 
+        the lcd displays room1 target and the user can change temperature with the
+        joystick as described previously.
+        */
+        if (room == 1){
+            // Analysing y axis joystick position to increase/decrease 
+            // temperature by step of ±2°C.
+
+            // +2°C position on joystick 
+            if (valuey > 900){
+              temperature_room1 += 2;
+            }
+            // -2°C position on joystick 
+            else if (valuey < 200){
+              temperature_room1 -= 2;
+            }
+
+            // Analysing x axis joystick position to increase/decrease 
+            // temperature by step of ±0.5°C.
+            
+            // -0.5°C position on joystick 
+            if (valuex > 900){
+              temperature_room1 -= 0.5;
+            }
+            // +0.5°C position on joystick 
+            else if (valuex <200){
+              temperature_room1 += 0.5; 
+            }
+            display_temperature_target(room, temperature_room1);
+        }
+
+        /*
+        If the user has selected the room 2 with the rotary encoder, 
+        the lcd displays room2 target and the user can change temperature with the
+        joystick as described previously.
+        */
+        if (room == 2){
+              // Analysing y axis joystick position to increase/decrease 
+              // temperature by step of ±2°C.
+
+              // +2°C position on joystick 
+              if (valuey > 900){
+                temperature_room2 += 2;
+              }
+              // -2°C position on joystick 
+              else if (valuey < 200){
+                temperature_room2 -= 2;
+              }
+
+              // Analysing x axis joystick position to increase/decrease 
+              // temperature by step of ±0.5°C.
+              
+              // -0.5°C position on joystick 
+              if (valuex > 900){
+                temperature_room2 -= 0.5;
+              }
+              // +0.5°C position on joystick 
+              else if (valuex <200){
+                temperature_room2 += 0.5; 
+              }
+              display_temperature_target(room, temperature_room2);
+          }
     }    
 }
 
@@ -214,29 +292,45 @@ ISR(ADC_vect)
       valueclick = ADC;
       // Button pressed 
       if (valueclick < 200){ 
-          lcd_gotoxy(11,0);
+          lcd_gotoxy(11,1);
           lcd_puts("click");
       }
       // Button not pressed
       else { 
-          lcd_gotoxy(11,0);
+          lcd_gotoxy(11,1);
           lcd_puts("     ");
       }
     }
 
-    if(mux==8){
-      uint32_t temperature;
-      char string[4];  // String for converted numbers by itoa()
-      uint32_t value = ADC;  
-      uint32_t voltage = (value*1.1)/1023;
-      temperature = (voltage*942.49)-272.39;
+}
 
-      //temperature = 1.01*value - 252.39;
+/**********************************************************************
+ * Function: Display target temperature on LCD. 
+ * Purpose:  Display converted value on LCD screen.
+ * @param temperature temperature target to display.
+ * 
+ **********************************************************************/
+void display_temperature_target(uint8_t room, uint16_t temperature){
+    
+    char string[4];  // String for converted numbers by itoa()
 
-      //temperature = (temperature - 324.31)/1.22;
-      itoa(temperature, string, 10);
-      uart_puts("\n");
-      uart_puts(string);
+    if(room == 1){
+      lcd_clrscr();                   // We clear the display.
+      lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
+      lcd_puts("Room 1 - target");
+      lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
+      lcd_puts("Temp : ");
+      lcd_gotoxy(7, 1);
+      itoa(temperature, string, 10);        
+    }
 
+    else if (room == 2){
+      lcd_clrscr();                   // We clear the display.
+      lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
+      lcd_puts("Room 2 - target");
+      lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
+      lcd_puts("Temp : ");
+      lcd_gotoxy(7, 1);
+      itoa(temperature, string, 10); 
     }
 }
