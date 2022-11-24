@@ -40,10 +40,15 @@ Insert descriptive text and schematic(s) of your implementation.
 >The LCD module is wired in the same way as in [Tomas Fryza PCB shields schematic](https://oshwlab.com/tomas.fryza/arduino-shields).
 
 
-|Sensor|Arduino board|Comment|
+|Sensor|Sensor PIN |Arduino PIN |Comment|
 | :-- | :-: | :-: |
-| | | |
-| | | |
+| Joystick| `VRX` | `PC0` | |
+| Joystick| `VRY` | `PC1` | |
+| Joystick| `SW` | `PC2` | |
+| Rotary encoder| `CLK` | `PB4` | |
+| Rotary encoder| `DAT` | `PB5` | |
+| Rotary encoder| `SW` | `PB6` | |
+| | | | |
 
 ![project](https://user-images.githubusercontent.com/114081879/203870031-c122c04f-a4bb-45ab-9847-a770181ee708.svg)
 
