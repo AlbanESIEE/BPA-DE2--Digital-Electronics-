@@ -85,6 +85,22 @@ void display_temperature_target(uint8_t room, uint16_t temperature){
 }
 
 /**********************************************************************
+ * Function: Display instructions on LCD
+ * Purpose:  Display instructions on LCD if the push button of the 
+ * rotary encoder is pressed. 
+ * 
+ **********************************************************************/
+
+void display_instructions(){
+    lcd_clrscr();                   // We clear the display.
+    lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
+    lcd_puts("Joy y: ±2, x:±0,5");
+    lcd_gotoxy(0, 1);               // Place cursor line 0, column 0.
+    lcd_puts("Rot: select room");
+}
+
+
+/**********************************************************************
  * Function: Read value of rotary encoder
  * Purpose:  Read value of rotary encoder and select the room in function of rotation.
  * 
@@ -97,7 +113,8 @@ void read_rotary_encoder(){
 
     // If the initial clock value is not the same than the previous, that means 
     // the encoder has been turned (the direction of rotation is not yet taken into account).
-    if(rotary_CLK_state != rotary_CLK_last_state){
+    // To avoid double count, we react to only 1 state change. 
+    if(rotary_CLK_state != rotary_CLK_last_state && rotary_CLK_state == 1){
         // If the DATA state is different from CLK state, we are turning clockwise.
         // So, we switch the counter (which corresponds to the room number to 1).
         // If we had more than two rooms, we should increment or decrement the counter to have
@@ -115,6 +132,12 @@ void read_rotary_encoder(){
     }
     // We update the value of CLK last state by the new one read.
     rotary_CLK_last_state = rotary_CLK_state; 
+
+    // If the push button of rotary encoder is pressed
+    // (active low : when the knob is pressed down, the voltage goes to 0.)
+    if(rotary_PUSH_state == 0){
+      display_instructions();
+    }
 }
 
 /**********************************************************************
@@ -132,6 +155,7 @@ int main(void)
     uart_init(UART_BAUD_SELECT(9600, F_CPU));
 
     /*
+    // Analog embedded temperature sensor of ATMEGA328P.
     if (mux == 8){
       // Configure Analog-to-Digital Convertion unit
       // Internal 1.1V Voltage Reference with external capacitor at AREF pin
@@ -397,9 +421,7 @@ ISR(ADC_vect)
       lcd_puts("     ");
       lcd_gotoxy(6,1);
       lcd_puts(string);
-      
     }
-
 
     /* In this case, (mux=1), that means that we have selected input channel ADC2. 
        So, we have to read the value from ADC and store it in our valueclick variable.
