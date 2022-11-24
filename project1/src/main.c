@@ -1,15 +1,21 @@
 /***********************************************************************
+ * @author Tomas Fryza
+ * @author Alban Ferracani - 252498@vutbr.cz
+ * @author Lucas Lacroix - 252503@vutbr.cz 
  * 
- * Use Analog-to-digital conversion to read push buttons on LCD keypad
- * shield and display it on LCD screen.
+ * @brief Digital multi-rooms thermostat with rotary encoder, joystick 
+ * and LCD.
+ * @date 11-24-2022 
  * 
- * ATmega328P (Arduino Uno), 16 MHz, PlatformIO
+ * @remarks (Arduino Uno), 16 MHz, PlatformIO
  *
  * Copyright (c) 2018 Tomas Fryza
+ * This program has been updaped by Alban FERRACANI and Lucas LACROIX. 
+ * The libraries used has been provided by Tomas Fryza during 
+ * semester labs of BPA-DE2 units.
+ * 
  * Dept. of Radio Electronics, Brno University of Technology, Czechia
  * This work is licensed under the terms of the MIT license.
- * 
- * This program has been updaped by  Alban FERRACANI and Lucas LACROIX.
  * 
  **********************************************************************/
 
