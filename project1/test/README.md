@@ -41,8 +41,9 @@ Insert descriptive text and schematic(s) of your implementation.
 
 
 |Sensor|Arduino board|Comment|
-|||
-|||
+| :-- | :-: | :-: |
+| | | |
+| | | |
 
 ![project](https://user-images.githubusercontent.com/114081879/203870031-c122c04f-a4bb-45ab-9847-a770181ee708.svg)
 
