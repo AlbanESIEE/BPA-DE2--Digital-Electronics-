@@ -48,7 +48,14 @@ Insert descriptive text and schematic(s) of your implementation.
 | Rotary encoder| `CLK` | `PB4` | |
 | Rotary encoder| `DAT` | `PB5` | |
 | Rotary encoder| `SW` | `PB6` | |
-| | | | |
+| LCD module| `E` | `PB1` | |
+| LCD module| `R` | `GND` | We only write |
+| LCD module| `RS` | `PB0` | |
+| LCD module| `DB4` | `PB4` | |
+| LCD module| `DB5` | `PB5` | |
+| LCD module| `DB6` | `PB6` | |
+| LCD module| `DB7` | `PB7` | |
+
 
 ![project](https://user-images.githubusercontent.com/114081879/203870031-c122c04f-a4bb-45ab-9847-a770181ee708.svg)
 
