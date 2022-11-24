@@ -36,9 +36,10 @@ The goal of the project is cooperation in pairs, further study of the topic, des
 
 Insert descriptive text and schematic(s) of your implementation.
 
->Here is a schematics of the project implementation we designed with `EasyEda`. For this project, we use one analog joy-stick (2 ADC channels, 1 push button), rotary encoder (with active low push button), and one Digilent PmodCLP LCD module.
+>Here is a schematic of the project implementation we designed with `EasyEda`. For this project, we use one analog joy-stick (2 ADC channels, 1 push button), rotary encoder (with active low push button), and one Digilent PmodCLP LCD module.
 >The LCD module is wired in the same way as in [Tomas Fryza PCB shields schematic](https://oshwlab.com/tomas.fryza/arduino-shields).
 
+>In the following tab, we have mapped sensors pins to Arduino Board pins. The Arduino Uno board pinout is [accessible here](https://docs.arduino.cc/static/6ec5e4c2a6c0e9e46389d4f6dc924073/4ef49/Pinout-UNOrev3_latest.png). We also describe from the `ATMEGA328` point of view if connections are configured as inputs or outputs (I/O).
 
 |Sensor|Sensor PIN |Arduino PIN | Arduino I/O|
 | :-- | :-: | :-: | :-- |
