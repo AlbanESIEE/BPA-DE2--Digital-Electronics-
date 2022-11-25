@@ -74,7 +74,7 @@ For the project, we use the following repository structure :
    DE2-Project         // PlatfomIO project
    ├── include         // Included files
    │    └── timer.h
-   ├── [lib](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/tree/master/project1/lib)             // Libraries
+   ├── lib            // Libraries
    │    └── gpio
    │        └── gpio.c
    │        └── gpio.h
@@ -83,7 +83,7 @@ For the project, we use the following repository structure :
    │        └── lcd.h
    │        └── lcd_definitions.h
    ├── src             // Source file(s)
-   │   └── [main.c](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main)
+   │   └── main.c
    ├── test            // No need this
    ├── platformio.ini  // Project Configuration File
    └── README.md       // Report of this project
