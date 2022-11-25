@@ -12,25 +12,18 @@ The goal of the project is cooperation in pairs, further study of the topic, des
 
 * The source code for the AVR must be written in C and/or Assembly and must be implementable on Arduino Uno board using toolchains from the semester, ie PlatformIO and not the Arduino-style. No other development tools are allowed.
 
-## Recommended GitHub repository structure
-
-   ```c
-   YOUR_PROJECT        // PlatfomIO project
-   ├── include         // Included files
-   ├── lib             // Libraries
-   ├── src             // Source file(s)
-   │   └── main.c
-   ├── test            // No need this
-   ├── platformio.ini  // Project Configuration File
-   └── README.md       // Report of this project
-   ```
-
-## Recommended README.md file structure
+## Our project
 
 ### Team members
-
 * Alban FERRACANI, 252498@vutbr.cz
 * Lucas LACROIX, 252503@vutbr.cz
+
+### Description of the projet
+The goal of this project is to develop a multiroom digital setpoint thermostat. To do this, we use :
+- a rotary encoder to select the room and display informations, 
+- a 2-axis joystick to set the temperature set-point, 
+- one LCD display module which is used as UI (user interface) to read data entered.
+
 
 ## Hardware description
 
