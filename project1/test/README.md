@@ -74,7 +74,7 @@ For the project, we use the following repository structure :
    DE2-Project         // PlatfomIO project
    ├── include         // Included files
    │    └── timer.h
-   ├── lib            // Libraries
+   ├── lib             // Libraries
    │    └── gpio
    │        └── gpio.c
    │        └── gpio.h
