@@ -102,7 +102,7 @@ The joystick works with two potentiometers (one per axis).
 Let's mention that to know the joystick position, we need to read two analog values (for `axis x` and `axis y`). That means when we set parameters of ADC, we have to switch beetween ADC inputs (to read the fist axis analog value, then the second axis analog value) because we can't read both without changing input configuration.
 To answer this requirement, we have decided to use a `switch/case` structure to set the ADC input (`ADMUX` register, by setting `MUX3`, `MUX2`, `MUX1` and `MUX0` bits). This process is described in [ATMEGA328 datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf), section 24.9 "Register Description".
 
->To check our values measured with the microcontroller, we have used the following diagram, we extracted from [this website](https://lastminuteengineers.com/joystick-interfacing-arduino-processing/). 
+>To check our values measured with the microcontroller, we have used the following diagram, we extracted from [this website](https://lastminuteengineers.com/joystick-interfacing-arduino-processing/). Before using joystick to set temperature setpoint, we have displayed the analog values for both axis on LCD module (to check and understand them).
 ![PS2-Joystick-Module-Movement-Analog-Values-on-Arduino](https://user-images.githubusercontent.com/114081879/204052074-d7b06fc1-0512-4b54-9ec8-2c7e04a5071b.png)
 
 Our implementation of the joystick in the project can be resumed by the following figure. 
