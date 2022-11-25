@@ -91,6 +91,9 @@ Put flowchats of your algorithm(s). Write descriptive text of your libraries and
    ```
 
 >Here is a flowchart of our [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main.c) program. 
+- Direct link to [`lib`]([lib](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/tree/master/project1/lib)) folder.
+- Direct link to [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main.c) file.
+
 <img width="1083" alt="Capture d’écran 2022-11-25 à 20 51 05" src="https://user-images.githubusercontent.com/114081879/204049609-b55c004f-8591-4eeb-9b7c-6a47772db934.png">
 
 
