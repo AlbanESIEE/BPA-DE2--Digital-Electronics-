@@ -70,17 +70,12 @@ Insert descriptive text and schematic(s) of your implementation.
 
 Put flowchats of your algorithm(s). Write descriptive text of your libraries and source files. Put direct links to these files in `src` or `lib` folders.
 
->We used [doxygen](https://doxygen.nl/) tool to generate $\LaTeX$ and `html` documentation of the project.
-
-[refman.pdf](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/files/10087620/refman.pdf)
-
-
->Here is a flowchart of our [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main.c) program. Also, we use the following repository structure :
+>For the project, we use the following repository structure :
  ```c
    DE2-Project         // PlatfomIO project
    ├── include         // Included files
    │    └── timer.h
-   ├── lib             // Libraries
+   ├── [lib](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/tree/master/project1/lib)             // Libraries
    │    └── gpio
    │        └── gpio.c
    │        └── gpio.h
@@ -89,13 +84,19 @@ Put flowchats of your algorithm(s). Write descriptive text of your libraries and
    │        └── lcd.h
    │        └── lcd_definitions.h
    ├── src             // Source file(s)
-   │   └── main.c
+   │   └── [main.c](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main)
    ├── test            // No need this
    ├── platformio.ini  // Project Configuration File
    └── README.md       // Report of this project
    ```
 
+>Here is a flowchart of our [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main.c) program. 
 <img width="1083" alt="Capture d’écran 2022-11-25 à 20 51 05" src="https://user-images.githubusercontent.com/114081879/204049609-b55c004f-8591-4eeb-9b7c-6a47772db934.png">
+
+
+>We used [doxygen](https://doxygen.nl/) tool to generate $\LaTeX$ and `html` documentation of the project.
+
+[refman.pdf](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/files/10087620/refman.pdf)
 
 
 ## Video
