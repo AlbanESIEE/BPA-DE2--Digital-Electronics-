@@ -96,7 +96,7 @@ Here is a flowchart of our [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Dig
 <img width="1083" alt="Capture d’écran 2022-11-25 à 20 51 05" src="https://user-images.githubusercontent.com/114081879/204049609-b55c004f-8591-4eeb-9b7c-6a47772db934.png">
 
 
-## Reading joystick analog values
+### Reading joystick analog values
 
 The joystick works with two potentiometers (one per axis). 
 Let's mention that to know the joystick position, we need to read two analog values (for `axis x` and `axis y`). That means when we set parameters of ADC, we have to switch beetween ADC inputs (to read the fist axis analog value, then the second axis analog value) because we can't read both without changing input configuration.
@@ -129,7 +129,7 @@ In fact, if the user...
                                   y axis 
 ```
 
-## Reading rotary encoder digital values
+### Reading rotary encoder digital values
 The room is selected with the rotary encoder. When the user turns the encoder... 
 - clockwise, we select room 1.
 - counterclockwise, we select room 0.
