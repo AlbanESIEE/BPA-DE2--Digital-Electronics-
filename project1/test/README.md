@@ -138,10 +138,13 @@ The second one is the `DATA`. It is also active during rotation but there is an 
 >For software implementation of rotary encoder, we need to read the both signals and to read the `DATA` pin and compare it with the current state of the `CLOCK` pin. As we use digital I/O ports, we don't have the same problem that for ADC conversion where we had to change ADC input in time.
 
 
-## Documentation of the project ($\LaTeX$ - PDF format)
->We used [doxygen](https://doxygen.nl/) tool to generate $\LaTeX$ and `html` documentation of the project.
+## Documentation of the project
 
-[refman.pdf](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/files/10087620/refman.pdf)
+We used [doxygen](https://doxygen.nl/) tool to generate $\LaTeX$ and `html` documentation of the project.
+The documentation is available in `PDF`by following [this link](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/files/10087620/refman.pdf). 
+
+To generate documentation in `PDF` with $\LaTeX$, we have to be in the doxygen working repository and in the folder latex.
+After, we use the command `make pdf` to generate the `PDF`file.
 
 
 ## Video
