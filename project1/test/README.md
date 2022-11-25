@@ -107,10 +107,10 @@ To answer this requirement, we have decided to use a `switch/case` structure to 
 
 Our implementation of the joystick in the project can be resumed by the following figure. 
 In fact, if the user...
-- push the joystick up : we increase the room temperature of 2°C.
-- push the joystick down : we decrease the room temperature of 2°C.
-- push the joystick right : we increase the room temperature of 0.5°C.
-- push the joystick left : we decrease the room temperature of 0.5°C.
+- push the joystick **up** : we increase the room temperature of 2°C.
+- push the joystick **down** : we decrease the room temperature of 2°C.
+- push the joystick **right** : we increase the room temperature of 0.5°C.
+- push the joystick **left** : we decrease the room temperature of 0.5°C.
 ```c 
               ---------------------------------
               | Temperature set with joystick |
@@ -131,8 +131,8 @@ In fact, if the user...
 
 ### Reading rotary encoder digital values
 The room is selected with the rotary encoder. When the user turns the encoder... 
-- clockwise, we select room 1.
-- counterclockwise, we select room 0.
+- **clockwise**, we select room 1.
+- **counterclockwise**, we select room 0.
 The rotary encoder has two digital output signals. The first one is the `CLOCK`, it is active when the user turns the encoder.
 The second one is the `DATA`. It is also active during rotation but there is an offset (phase shift) between the clock signal and the data signal. Depending on whether we have a phase advance or phase late delay, we can easily deduce the direction of rotation.
 >For software implementation of rotary encoder, we need to read the both signals and to read the `DATA` pin and compare it with the current state of the `CLOCK` pin. As we use digital I/O ports, we don't have the same problem that for ADC conversion where we had to change ADC input in time.
