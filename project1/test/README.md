@@ -23,7 +23,7 @@ The goal of this project is to develop a multiroom digital setpoint thermostat. 
 - a rotary encoder to select the room and display informations, 
 - a 2-axis joystick to set the temperature set-point, 
 - one LCD display module which is used as UI (user interface) to read data entered.
-
+The project is running thanks to `ATMEGA328` microcontroller and it is written in C. The implementation on microcontroller is performed with PlatformIO and Microsoft Visual Studio Code.
 
 ## Hardware description
 
