@@ -47,7 +47,6 @@ Insert descriptive text and schematic(s) of your implementation.
 >- Documentation of `rotary encoder` (with very clear animations and schematics) is [available here](https://lastminuteengineers.com/rotary-encoder-arduino-tutorial/).
 >- Documentation of `analog joystick` (with very clear animations and schematics) is [available here](https://lastminuteengineers.com/joystick-interfacing-arduino-processing/).
 
-
 |Sensor|Sensor PIN |Arduino PIN | Arduino I/O|
 | :-- | :-: | :-: | :-- |
 | Joystick| `VRX` | `PC0` | Input - analog |
@@ -74,6 +73,12 @@ Put flowchats of your algorithm(s). Write descriptive text of your libraries and
 >We used [doxygen](https://doxygen.nl/) tool to generate $\LaTeX$ and `html` documentation of the project.
 
 [refman.pdf](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/files/10087620/refman.pdf)
+
+
+>Here is a flowchart of our `main.c` program. 
+
+<img width="1083" alt="Capture d’écran 2022-11-25 à 20 51 05" src="https://user-images.githubusercontent.com/114081879/204049609-b55c004f-8591-4eeb-9b7c-6a47772db934.png">
+
 
 ## Video
 
