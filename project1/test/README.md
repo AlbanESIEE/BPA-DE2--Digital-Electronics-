@@ -89,7 +89,7 @@ For the project, we use the following repository structure :
    └── README.md       // Report of this project
    ```
 
-Here is a flowchart of our [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main.c) program. We used Wondershare EdrawMax to design it.
+Here is a flowchart of our [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main.c) program. We used Wondershare EdrawMax software to design it.
 - Direct link to [`lib`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/tree/master/project1/lib) folder.
 - Direct link to [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main.c) file.
 
