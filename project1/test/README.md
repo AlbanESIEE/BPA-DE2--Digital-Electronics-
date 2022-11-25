@@ -141,8 +141,8 @@ The second one is the `DATA`. It is also active during rotation but there is an 
 
 ## Documentation of the project
 
-We used [doxygen](https://doxygen.nl/) tool to generate `$\LaTeX$` and `html` documentation of the project.
-The documentation is available in `PDF`by following [this link](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/files/10087620/refman.pdf). 
+We used [doxygen](https://doxygen.nl/) tool to generate $\LaTeX$ and HTML documentation of the project.
+The documentation is available in PDF by following [this link](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/files/10087620/refman.pdf). 
 
 To generate documentation in PDF with $\LaTeX$, we have to be in the doxygen working repository and in the folder latex.
 After, we use the command `make pdf` to generate the PDF file.
