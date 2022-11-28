@@ -606,3 +606,12 @@ ISR(ADC_vect)
       }
     }
 }
+
+/*
+Please note : 
+- to simulate on simulIDE, we use the firmware.hex file generated during compilation. 
+  This file is not human readeable (cf lecture of Tomas FRYZA). 
+- On simulIDE, the button (SW) of joystick is active high, but for the real one we have, it's an active low configuration.
+- On simulIde, the x and y axis are inverted in comparaison with the real joystick.  
+*/
+
