@@ -5,7 +5,7 @@
  * 
  * @brief Digital multi-rooms thermostat with rotary encoder, joystick 
  * and LCD.
- * @date 11-24-2022 
+ * @date 11-28-2022 
  * 
  * @remarks (Arduino Uno), 16 MHz, PlatformIO
  *
@@ -197,7 +197,7 @@ void lcd_CreateCustomChar(unsigned char *customCharToCreate, const char location
     lcd_command(1<<LCD_DDRAM);       // Set addressing back to DDRAM (Display Data RAM)
                                      // ie to character codes
 }
-    
+
 
 /**********************************************************************
  * Function: Main function where the program execution begins
@@ -605,5 +605,4 @@ ISR(ADC_vect)
           //lcd_puts("     ");
       }
     }
-
 }
