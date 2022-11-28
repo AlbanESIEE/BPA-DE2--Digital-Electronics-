@@ -119,13 +119,13 @@ void read_rotary_encoder(){
         // If we had more than two rooms, we should increment or decrement the counter to have
         // more than two states.
         if(rotary_DATA_state != rotary_CLK_state){
-          rotary_counter = 1; 
+          //rotary_counter = 1; 
           room = 1;
         }
         // If the DATA state is equal to CLK state, we are turning counterclockwise.
         // So, we switch the counter (which corresponds to the room number to 0).
         else {
-          rotary_counter = 0; 
+          //rotary_counter = 0; 
           room = 0; 
         }
     }
