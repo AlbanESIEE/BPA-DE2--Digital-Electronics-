@@ -33,12 +33,12 @@
 uint8_t mux = 0;            // Variable uint8_t mux for switching ADC mux.
 uint32_t password = 0;      // Password entered is set here.
 
-uint16_t valuex;            // Value for x axis of Joystick
-uint16_t valuey;            // Value for y axis of Joystick
+uint16_t valuex = 512;            // Value for x axis of Joystick
+uint16_t valuey = 512;            // Value for y axis of Joystick
 uint16_t valueclick;        // Value for click from Joystick
 
 uint32_t temperature_room1 = 20;   // Value with wanted temperature room1
-uint32_t temperature_room2 = 20;   // Value with wanted temperature room2
+uint32_t temperature_room2 = 10;   // Value with wanted temperature room2
 uint8_t room = 1;                  // Select the room
 
 uint8_t rotary_CLK_state = 0; 
@@ -69,8 +69,11 @@ void display_temperature_target(uint8_t room, uint16_t temperature){
       lcd_puts("Room 1 - target");
       lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
       lcd_puts("Temp : ");
-      lcd_gotoxy(7, 1);
-      itoa(temperature, string, 10);        
+      itoa(temperature_room1, string, 10);
+      lcd_gotoxy(8, 1);
+      lcd_puts(string);
+
+      
     }
 
     else if (room == 2){
@@ -79,8 +82,9 @@ void display_temperature_target(uint8_t room, uint16_t temperature){
       lcd_puts("Room 2 - target");
       lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
       lcd_puts("Temp : ");
-      lcd_gotoxy(7, 1);
-      itoa(temperature, string, 10); 
+      itoa(temperature_room2, string, 10);
+      lcd_gotoxy(8, 1);
+      lcd_puts(string);
     }
 }
 
@@ -113,7 +117,7 @@ void read_rotary_encoder(){
     // If the initial clock value is not the same than the previous, that means 
     // the encoder has been turned (the direction of rotation is not yet taken into account).
     // To avoid double count, we react to only 1 state change. 
-    if(rotary_CLK_state != rotary_CLK_last_state && rotary_CLK_state == 1){
+    if(rotary_CLK_state != rotary_CLK_last_state){ //&& rotary_CLK_state == 1
         // If the DATA state is different from CLK state, we are turning clockwise.
         // So, we switch the counter (which corresponds to the room number to 1).
         // If we had more than two rooms, we should increment or decrement the counter to have
@@ -126,7 +130,7 @@ void read_rotary_encoder(){
         // So, we switch the counter (which corresponds to the room number to 0).
         else {
           //rotary_counter = 0; 
-          room = 0; 
+          room = 2; 
         }
     }
     // We update the value of CLK last state by the new one read.
@@ -137,6 +141,13 @@ void read_rotary_encoder(){
     if(rotary_PUSH_state == 0){
       display_instructions();
     }
+
+    // String for converted numbers by itoa()
+    /*char string[4];  
+    itoa(room, string, 10); 
+    lcd_gotoxy(13, 1);       
+    lcd_puts(string); */
+
 }
 
 /**********************************************************************
@@ -241,7 +252,7 @@ ISR(TIMER1_OVF_vect)
           // Select input channel ADC1 (voltage divider pin)
           ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1); ADMUX|= (1<<MUX0);
           // Switching for ADC2 at the next TIMER1_OVF_vect
-          mux=2;
+          mux=0;
           break;
 
         case 2:
@@ -311,30 +322,82 @@ ISR(TIMER1_OVF_vect)
         joystick as described previously.
         */
         if (room == 1){
+
+            // String for converted numbers by itoa()
+            char string[4];  
+
             // Analysing y axis joystick position to increase/decrease 
             // temperature by step of ±2°C.
 
+            if(valuex >=500 && valuex<= 520 && valuey >=500 && valuey<= 520){
+              temperature_room1 = temperature_room1; 
+              temperature_room2 = temperature_room2; 
+            }
+            
+            if(valuex<100 && valuey >500){
+              temperature_room1 += 5;
+            }
+            if(valuex>1000 && valuey <520 && valuey > 500){
+              temperature_room1 -= 5;
+            }
+            if(valuey<10 && valuex >500 && valuex<520){
+              temperature_room1 -=1;
+            }
+            if(valuey>1000 & valuex>500 && valuex<520){
+              temperature_room1 +=1;
+            }
+            /*
+            // A DECOMMENTER POUR LE JOYSTICK REEL
+
+            if(valuey<100 && valuex >500){
+              temperature_room1 += 5;
+            }
+            if(valuey>1000 && valuex <520 && valuex > 500){
+              temperature_room1 -= 5;
+            }
+            if(valuex<10 && valuey >500 && valuey<520){
+              temperature_room1 -=1;
+            }
+            if(valuex>1000 & valuey>500 && valuey<520){
+              temperature_room1 +=1;
+            }
+            */
+            //valuex = 512;
+            //valuey = 512;
+
+
+          
+            /*
             // +2°C position on joystick 
-            if (valuey > 900){
-              temperature_room1 += 2;
+            if (valuey > 700){
+              temperature_room1 += 5;
+              valuey = 512;
+              valuex = 512;
             }
             // -2°C position on joystick 
-            else if (valuey < 200){
-              temperature_room1 -= 2;
+            else if (valuey < 300){
+              temperature_room1 -= 5;
+              valuey = 512;
+              valuex = 512;
             }
 
             // Analysing x axis joystick position to increase/decrease 
             // temperature by step of ±0.5°C.
             
             // -0.5°C position on joystick 
-            if (valuex > 900){
-              temperature_room1 -= 0.5;
+            if (valuex > 700){
+              temperature_room1 -= 1;
+              valuey = 512;
+              valuex = 512;
             }
             // +0.5°C position on joystick 
-            else if (valuex <200){
-              temperature_room1 += 0.5; 
+            else if (valuex <300){
+              temperature_room1 += 1;
+              valuey = 512;
+              valuex = 512;
             }
-            display_temperature_target(room, temperature_room1);
+            */
+            display_temperature_target(room, temperature_room1);  
         }
 
         /*
@@ -346,29 +409,43 @@ ISR(TIMER1_OVF_vect)
               // Analysing y axis joystick position to increase/decrease 
               // temperature by step of ±2°C.
 
+              // String for converted numbers by itoa()
+              char string[4];  
+
               // +2°C position on joystick 
-              if (valuey > 900){
-                temperature_room2 += 2;
+              if (valuey > 700){
+                temperature_room2 += 5;
+                valuey = 512;
+                valuex = 512;
               }
+  
               // -2°C position on joystick 
-              else if (valuey < 200){
-                temperature_room2 -= 2;
+              else if (valuey < 300){
+                temperature_room2 -= 5;
+                valuey = 512;
+                valuex = 512;
               }
 
               // Analysing x axis joystick position to increase/decrease 
               // temperature by step of ±0.5°C.
               
               // -0.5°C position on joystick 
-              if (valuex > 900){
-                temperature_room2 -= 0.5;
+              if (valuex > 700){
+                temperature_room2 -= 1; 
+                valuex = 512;
+                valuey = 512;
               }
               // +0.5°C position on joystick 
-              else if (valuex <200){
-                temperature_room2 += 0.5; 
+              else if (valuex <300){
+                temperature_room2 += 1; 
+                valuey = 512;
+                valuex = 512;
               }
               display_temperature_target(room, temperature_room2);
           }
     }    
+    // Start ADC conversion
+    ADCSRA = ADCSRA | (1<<ADSC);
 }
 
 /**********************************************************************
@@ -382,14 +459,17 @@ ISR(ADC_vect)
        This value corresponds to x axis variations (range : 0-1023).
     */
     if(mux == 1){
+      
       // String for converted numbers by itoa()
       char string[4];  
       // Display text on lcd.
-      lcd_gotoxy(0,0);
-      lcd_puts("val x");
+      //lcd_gotoxy(0,0);
+      //lcd_puts("val x");
       // Read converted value
       // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
       valuex = ADC;
+      
+      /*
       // Convert "value" to "string" and display it
       itoa(valuex, string, 10);
       lcd_gotoxy(6,0);
@@ -398,6 +478,7 @@ ISR(ADC_vect)
       // Display value on lcd.
       lcd_gotoxy(6,0);
       lcd_puts(string);
+      */
     }
 
     /* In this case, (mux=0), that means that we have selected input channel ADC0. 
@@ -406,23 +487,31 @@ ISR(ADC_vect)
     */
     if(mux==0){
       // Select input channel ADC0 (voltage divider pin)
-      ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1| 1<<MUX0);
-
+      //ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1| 1<<MUX0);
+      
+      
       char string[4];  // String for converted numbers by itoa()
-      lcd_gotoxy(0,1);
-      lcd_puts("val y");
+      //lcd_gotoxy(0,1);
+      //lcd_puts("val y");
       // Read converted value
       // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
+      
       valuey = ADC;
       // Convert "value" to "string" and display it
+      
+      /*
       itoa(valuey, string, 10);
       lcd_gotoxy(6,1);
       lcd_puts("     ");
       lcd_gotoxy(6,1);
       lcd_puts(string);
+      */
+      
     }
 
-    /* In this case, (mux=1), that means that we have selected input channel ADC2. 
+    
+  
+    /* In this case, (mux=2), that means that we have selected input channel ADC2. 
        So, we have to read the value from ADC and store it in our valueclick variable.
        This value corresponds to button pressed from joystick (0 or 1023).
        --> If the button is not pressed : 1023 (HIGH state).
@@ -433,13 +522,13 @@ ISR(ADC_vect)
       valueclick = ADC;
       // Button pressed 
       if (valueclick < 200){ 
-          lcd_gotoxy(11,1);
-          lcd_puts("click");
+          //lcd_gotoxy(11,1);
+          //lcd_puts("click");
       }
       // Button not pressed
       else { 
-          lcd_gotoxy(11,1);
-          lcd_puts("     ");
+          //lcd_gotoxy(11,1);
+          //lcd_puts("     ");
       }
     }
 
