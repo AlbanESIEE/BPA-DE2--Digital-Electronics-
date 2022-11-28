@@ -23,6 +23,7 @@
 /* Includes ----------------------------------------------------------*/
 #include <avr/io.h>         // AVR device-specific IO definitions
 #include <avr/interrupt.h>  // Interrupts standard C library for AVR-GCC
+#include <util/delay.h>     // Delays library for AVR-GCC
 #include <gpio.h>           // GPIO library for AVR-GCC
 #include "timer.h"          // Timer library for AVR-GCC
 #include <lcd.h>            // Peter Fleury's LCD library
@@ -47,10 +48,43 @@ uint8_t rotary_PUSH_state = 0;
 uint8_t rotary_CLK_last_state; 
 uint8_t rotary_counter = 0; 
 
+
 /* Defines -----------------------------------------------------------*/
 #define ROTARY_CLK PB4             // Output signal CLK from rotary encoder
 #define ROTARY_DATA PB5            // Output signal DATA from rotary encoder
-#define ROTARY_PUSH PB6            // Output signal PUSH from rotary encoder
+#define ROTARY_PUSH PB3            // Output signal PUSH from rotary encoder
+
+// Custom character definition using https://omerk.github.io/lcdchargen/
+uint8_t customCharBegin[8] = {
+        0b11111,
+        0b11111,
+        0b11000,
+        0b11000,
+        0b11000,
+        0b11000,
+        0b11111,
+        0b11111
+};
+uint8_t customCharMiddle[7] = {
+        0b11111,
+        0b11111,
+        0b00000,
+        0b00000,
+        0b00000,
+        0b00000,
+        0b11111,
+        0b11111
+};
+uint8_t customCharEnd[6] = {
+        0b11111,
+        0b11111,
+        0b00011,
+        0b00011,
+        0b00011,
+        0b00011,
+        0b11111,
+        0b11111
+};
 
 
 /* Function definitions ----------------------------------------------*/
@@ -72,8 +106,6 @@ void display_temperature_target(uint8_t room, uint16_t temperature){
       itoa(temperature_room1, string, 10);
       lcd_gotoxy(8, 1);
       lcd_puts(string);
-
-      
     }
 
     else if (room == 2){
@@ -100,6 +132,7 @@ void display_instructions(){
     lcd_puts("Joy y: ±2, x:±0,5");
     lcd_gotoxy(0, 1);               // Place cursor line 0, column 0.
     lcd_puts("Rot: select room");
+    _delay_ms(1000);
 }
 
 
@@ -141,14 +174,30 @@ void read_rotary_encoder(){
     if(rotary_PUSH_state == 0){
       display_instructions();
     }
-
-    // String for converted numbers by itoa()
-    /*char string[4];  
-    itoa(room, string, 10); 
-    lcd_gotoxy(13, 1);       
-    lcd_puts(string); */
-
 }
+
+/**********************************************************************
+ * @name Creating a custom char for LCD from pixel map.
+ * @brief  Push the custom char in memory of CGRAM from pixel matrix.
+ * @note we can create maximum 8 custom characters
+ * @param customCharToCreate pointer containing the address of the pattern
+ * @param locationCGRAM position of custom char in CGRAM (0 to 7) 
+ * @note Works for HD44780 controller (for LCD)
+ * @return none
+ **********************************************************************/
+
+void lcd_CreateCustomChar(unsigned char *customCharToCreate, const char locationCGRAM)
+{
+    lcd_command((1 << LCD_CGRAM) + locationCGRAM*8);  //Set the addressing to CGRAM (Character Generator RAM)
+                                                    // ie to individual lines of character patterns                      
+
+    for (uint8_t i=0; i<8; i++){
+      lcd_data (customCharToCreate[i]);             //Pass the bytes of pattern on LCD 
+    }
+    lcd_command(1<<LCD_DDRAM);       // Set addressing back to DDRAM (Display Data RAM)
+                                     // ie to character codes
+}
+    
 
 /**********************************************************************
  * Function: Main function where the program execution begins
@@ -164,6 +213,30 @@ int main(void)
     // Initialize USART to asynchronous, 8N1, 9600
     uart_init(UART_BAUD_SELECT(9600, F_CPU));
 
+    // Generating the initialisation message on LCD display
+    lcd_clrscr();                                         // We clear LCD.
+    lcd_CreateCustomChar(customCharBegin, 0);             // Creating custom char of the begining, at position 0 in CGRAM.
+    lcd_CreateCustomChar(customCharMiddle, 1);            // Creating custom char of the middle, at position 1 in CGRAM.
+    lcd_CreateCustomChar(customCharEnd, 2);               // Creating custom char of the end, at position 2 in CGRAM.
+
+    lcd_gotoxy(0,0);    
+    lcd_puts("Digital heating");                          // Displaying name of system.
+    lcd_gotoxy(0,1);
+    lcd_puts("control");
+
+    lcd_gotoxy(8,1);
+    lcd_putc(0x00);                      // Display symbol with Character code 0.
+    _delay_ms(400);
+
+    for (int i=9; i<15; i++){
+      lcd_gotoxy(i,1);
+      lcd_putc(0x01);                    // Display symbol with Character code 1
+      _delay_ms(400);                    // 6 times with one column shift between each.  
+    }
+    _delay_ms(400);
+    lcd_gotoxy(15,1);
+    lcd_putc(0x02);                      // Display symbol with Character code 2
+
     /*
     // Analog embedded temperature sensor of ATMEGA328P.
     if (mux == 8){
@@ -176,6 +249,7 @@ int main(void)
       // Select ADC voltage reference to "AVcc with external capacitor at AREF pin"
       ADMUX = ADMUX | (1<<REFS0);
     }*/
+
 
     // Configure Analog-to-Digital Convertion unit
     // Select ADC voltage reference to "AVcc with external capacitor at AREF pin"
@@ -271,16 +345,16 @@ ISR(TIMER1_OVF_vect)
               | Temperature set with joystick |
               ---------------------------------
 
-                           + 2°C
+                           + 5°C
                             | |          
                             | |        
                             | |       
                    ..................... x axis 
-            -0.5°C ..................... +0.5°C
+            -1.0°C ..................... +1.0°C
                             | | 
                             | | 
                             | | \
-                           -2°C  \
+                           -5°C  \
                                   y axis 
         */
         
