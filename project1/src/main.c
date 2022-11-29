@@ -256,23 +256,28 @@ void display_temperature_DHT12(){
 }
 
 /**********************************************************************
- * Function: Main function where the program execution begins
- * Purpose:  Use Timer/Counter1 and start ADC conversion every 100 ms.
- *           When AD conversion ends, send converted value to LCD screen.
- * Returns:  none
+ * @name Main function where the program execution begins
+ * @brief Use Timer/Counter1 and start ADC conversion every 100 ms.
+ * When AD conversion ends, send converted value to LCD screen.
+ * @return none
  **********************************************************************/
 int main(void)
 {
-    // Initialize display
+    // Initialize display 
     lcd_init(LCD_DISP_ON);
 
     // Initialize USART to asynchronous, 8N1, 9600
+    // In this project, we only use UART communication with computer for 
+    // program developement (helps to display few data we record). 
     uart_init(UART_BAUD_SELECT(9600, F_CPU));
 
     // Initialize I2C (TWI)
+    // The I2C communication is used with one slave (DHT12 temperature and humidity sensor).
     twi_init();
 
     // Generating the initialisation message on LCD display
+    // We display a message "Digital heating system" with a short animation
+    // based on custom characters (progression bar).
     lcd_clrscr();                                         // We clear LCD.
     lcd_CreateCustomChar(customCharBegin, 0);             // Creating custom char of the begining, at position 0 in CGRAM.
     lcd_CreateCustomChar(customCharMiddle, 1);            // Creating custom char of the middle, at position 1 in CGRAM.
@@ -284,17 +289,17 @@ int main(void)
     lcd_puts("control");
 
     lcd_gotoxy(8,1);
-    lcd_putc(0x00);                      // Display symbol with Character code 0.
-    _delay_ms(400);
-
+    lcd_putc(0x00);                                       // Display symbol with Character code 0.
+    _delay_ms(400);                                       // Wait for 400ms (using delay is not a problem here as we 
+                                                          // are nor waiting for interactions [ie. buttons, etc].
     for (int i=9; i<15; i++){
       lcd_gotoxy(i,1);
-      lcd_putc(0x01);                    // Display symbol with Character code 1
-      _delay_ms(400);                    // 6 times with one column shift between each.  
+      lcd_putc(0x01);                                     // Display symbol with Character code 1.
+      _delay_ms(400);                                     // 6 times with one column shift between each.  
     }
     _delay_ms(400);
-    lcd_gotoxy(15,1);
-    lcd_putc(0x02);                      // Display symbol with Character code 2
+    lcd_gotoxy(15,1);   
+    lcd_putc(0x02);                                       // Display symbol with Character code 2.
 
     /*
     // Analog embedded temperature sensor of ATMEGA328P.
@@ -357,8 +362,8 @@ int main(void)
 
 /* Interrupt service routines ----------------------------------------*/
 /**********************************************************************
- * Function: Timer/Counter1 overflow interrupt
- * Purpose:  Use single conversion mode and start conversion every 100 ms.
+ * @name Timer/Counter1 overflow interrupt
+ * @brief Use single conversion mode and start conversion every 100 ms.
  **********************************************************************/
 ISR(TIMER1_OVF_vect)
 {
@@ -447,38 +452,56 @@ ISR(TIMER1_OVF_vect)
                     counterclockwise |  
               <<<------<<<---------<<<---------<<<
         */
+        
+        // We call the read_rotary_encoder() function to read the rotary encoder 
+        // position. The function selects the room according to the direction of rotation.
         read_rotary_encoder(); 
         
-        /*
-        If the user has selected the room 1 with the rotary encoder, 
-        the lcd displays room1 target and the user can change temperature with the
-        joystick as described previously.
-        */
+        
+        // If the user has selected the room 1 with the rotary encoder, 
+        // the lcd displays room1 target and the user can change temperature with the
+        // joystick as described previously.
+        
         if (room == 1){
-
             // String for converted numbers by itoa()
             char string[4];  
 
-            // Analysing y axis joystick position to increase/decrease 
-            // temperature by step of ±2°C.
+            // Analysing x and y axis positions of joystick to increase/decrease 
+            // temperature by step of ±5°C (y axis) and ±1°C (x axis).
+            // The analog values for different positions of joystick are described in joystick's datasheet.
 
             if(valuex >=500 && valuex<= 520 && valuey >=500 && valuey<= 520){
               temperature_room1 = temperature_room1; 
               temperature_room2 = temperature_room2; 
             }
-            
+            // Joystick pushed up (north direction), 
+            // we increase temperature of selected room by 5°C.
             if(valuex<100 && valuey >500){
               temperature_room1 += 5;
             }
+            // Joystick pushed down (south direction),
+            // we decrease temperature of selected room by 5°C.
             if(valuex>1000 && valuey <520 && valuey > 500){
               temperature_room1 -= 5;
             }
+            // Joystick pushed right (east direction),
+            // we decrease temperature of selected room by 1°C.
             if(valuey<10 && valuex >500 && valuex<520){
               temperature_room1 -=1;
             }
+            // Joystick pushed left (west direction),
+            // we increase temperature of selected room by 1°C.
             if(valuey>1000 & valuex>500 && valuex<520){
               temperature_room1 +=1;
             }
+
+            // Call of display temperature target function to display the target
+            // which has been set on LCD. The parameters are : 
+            // - the room (1 or 2);
+            // - the temperature target; 
+            display_temperature_target(room, temperature_room1);  
+
+
             /*
             // A DECOMMENTER POUR LE JOYSTICK REEL
 
@@ -497,40 +520,7 @@ ISR(TIMER1_OVF_vect)
             */
             //valuex = 512;
             //valuey = 512;
-
-
-          
-            /*
-            // +2°C position on joystick 
-            if (valuey > 700){
-              temperature_room1 += 5;
-              valuey = 512;
-              valuex = 512;
-            }
-            // -2°C position on joystick 
-            else if (valuey < 300){
-              temperature_room1 -= 5;
-              valuey = 512;
-              valuex = 512;
-            }
-
-            // Analysing x axis joystick position to increase/decrease 
-            // temperature by step of ±0.5°C.
-            
-            // -0.5°C position on joystick 
-            if (valuex > 700){
-              temperature_room1 -= 1;
-              valuey = 512;
-              valuex = 512;
-            }
-            // +0.5°C position on joystick 
-            else if (valuex <300){
-              temperature_room1 += 1;
-              valuey = 512;
-              valuex = 512;
-            }
-            */
-            display_temperature_target(room, temperature_room1);  
+  
         }
 
         /*
@@ -539,44 +529,12 @@ ISR(TIMER1_OVF_vect)
         joystick as described previously.
         */
         if (room == 2){
-              // Analysing y axis joystick position to increase/decrease 
-              // temperature by step of ±2°C.
-
-              // String for converted numbers by itoa()
-              char string[4];  
-
-              // +2°C position on joystick 
-              if (valuey > 700){
-                temperature_room2 += 5;
-                valuey = 512;
-                valuex = 512;
-              }
-  
-              // -2°C position on joystick 
-              else if (valuey < 300){
-                temperature_room2 -= 5;
-                valuey = 512;
-                valuex = 512;
-              }
-
-              // Analysing x axis joystick position to increase/decrease 
-              // temperature by step of ±0.5°C.
               
-              // -0.5°C position on joystick 
-              if (valuex > 700){
-                temperature_room2 -= 1; 
-                valuex = 512;
-                valuey = 512;
-              }
-              // +0.5°C position on joystick 
-              else if (valuex <300){
-                temperature_room2 += 1; 
-                valuey = 512;
-                valuex = 512;
-              }
+              // to complete !! 
+
               display_temperature_target(room, temperature_room2);
           }
-    }    
+    }
     // Start ADC conversion
     ADCSRA = ADCSRA | (1<<ADSC);
 }
@@ -592,7 +550,6 @@ ISR(ADC_vect)
        This value corresponds to x axis variations (range : 0-1023).
     */
     if(mux == 1){
-      
       // String for converted numbers by itoa()
       char string[4];  
       // Display text on lcd.
