@@ -29,6 +29,7 @@
 #include <lcd.h>            // Peter Fleury's LCD library
 #include <stdlib.h>         // C library. Needed for number conversions
 #include <uart.h>           // Peter Fleury's UART library
+#include <twi.h>            // I2C/TWI library for AVR-GCC
 
 /* Declaration of variables -------------------------------------------*/
 uint8_t mux = 0;            // Variable uint8_t mux for switching ADC mux.
@@ -47,6 +48,15 @@ uint8_t rotary_DATA_state = 0;
 uint8_t rotary_PUSH_state = 0; 
 uint8_t rotary_CLK_last_state; 
 uint8_t rotary_counter = 0; 
+
+// Declaration of "air" variable with structure "Air_parameters_structure"
+struct Air_parameters_structure {
+    uint8_t humid_int;
+    uint8_t humid_dec;
+    uint8_t temp_int;
+    uint8_t temp_dec;
+    uint8_t checksum;
+} air;
 
 
 /* Defines -----------------------------------------------------------*/
@@ -200,6 +210,52 @@ void lcd_CreateCustomChar(unsigned char *customCharToCreate, const char location
 
 
 /**********************************************************************
+ * @name Displaying indoor temperature on LCD.
+ * @brief Displaying indoor temperature on LCD, mesures are done with 
+ * DH12 I2C temperature sensor.
+ * @note Address of the I2C DHT12 has been found during Lab 7. 
+ * @return none
+ **********************************************************************/
+
+void display_temperature_DHT12(){
+    static uint8_t sla = 8;      // I2C Slave address
+    uint8_t ack;                 // ACK response from Slave
+    char string_int[3];          // String for converting numbers by itoa()
+    char string_dec[3];          // String for converting numbers by itoa()
+
+    // Read temperature from 0x5c
+    sla = 0x5c;
+    twi_start(sla, TWI_WRITE);
+    
+    // We start reading integer and decimal part of temperature only if the 
+    // sensor is ready to communicate (ie ack = 0).
+    if (ack == 0){     
+      twi_write(0x02); 
+      twi_stop();
+      twi_start(sla, TWI_READ);
+      air.temp_int = twi_read_ack();
+      air.temp_dec = twi_read_nack();
+
+      // Convert values to string
+      itoa(air.temp_int, string_int, 10);
+      itoa(air.temp_dec, string_dec, 10);
+        
+      // Display temperature on LCD
+      lcd_clrscr();
+      lcd_gotoxy(0,0);
+      lcd_puts("Temperature in");
+      lcd_gotoxy(0,1);
+      lcd_puts(air.temp_int);
+      lcd_gotoxy(2,1);
+      lcd_puts(air.temp_dec);
+      lcd_gotoxy(4,1);
+      lcd_puts("degrees");
+
+      _delay_ms(1000);
+    }
+}
+
+/**********************************************************************
  * Function: Main function where the program execution begins
  * Purpose:  Use Timer/Counter1 and start ADC conversion every 100 ms.
  *           When AD conversion ends, send converted value to LCD screen.
@@ -212,6 +268,9 @@ int main(void)
 
     // Initialize USART to asynchronous, 8N1, 9600
     uart_init(UART_BAUD_SELECT(9600, F_CPU));
+
+    // Initialize I2C (TWI)
+    twi_init();
 
     // Generating the initialisation message on LCD display
     lcd_clrscr();                                         // We clear LCD.
