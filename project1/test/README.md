@@ -180,8 +180,8 @@ As we saw in lab 7 of Digital Electronics 2, according to the [DHT12 manual](htt
 |`0x04`| Checksum |
 
 So, if the user : 
-- pushes the rotary encoder button, we display the temperature of the room (as on *figure 1* below).
-- pushes the joystick switch, we display the humidity of the room (as on *figure 2* below).
+- pushes the **rotary encoder button**, we display the **temperature** of the room (as on *figure 1* below).
+- pushes the **joystick switch**, we display the **humidity** of the room (as on *figure 2* below).
 
 |Displaying temperature *(figure 1)*| Displaying humidity *(figure 2)*|
 |:--:|:--:|
