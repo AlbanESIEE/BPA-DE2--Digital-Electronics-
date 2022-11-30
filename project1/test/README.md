@@ -104,8 +104,9 @@ Here is a flowchart of our [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Dig
 - Direct link to [`lib`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/tree/master/project1/lib) folder.
 - Direct link to [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main.c) file.
 
-<img width="1083" alt="Capture d’écran 2022-11-25 à 20 51 05" src="https://user-images.githubusercontent.com/114081879/204049609-b55c004f-8591-4eeb-9b7c-6a47772db934.png">
+<img width="1102" alt="flowchart_part_1" src="https://user-images.githubusercontent.com/114081879/204890552-585a6b1e-f3be-4e28-ab48-4da607fbcb3a.png">
 
+<img width="1101" alt="flowchart_part_2" src="https://user-images.githubusercontent.com/114081879/204890571-d17871d9-dbc4-4a6a-bd25-51bcf7643a55.png">
 
 ### Reading joystick analog values
 
