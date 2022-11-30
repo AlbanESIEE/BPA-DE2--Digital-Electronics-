@@ -5,7 +5,7 @@
  * 
  * @brief Digital multi-rooms thermostat with rotary encoder, joystick 
  * and LCD.
- * @date 11-28-2022 
+ * @date 11-30-2022 
  * 
  * @remarks (Arduino Uno), 16 MHz, PlatformIO
  *
