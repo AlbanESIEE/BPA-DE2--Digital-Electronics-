@@ -31,7 +31,7 @@ The goal of this project is to develop a multiroom digital setpoint thermostat. 
 
 Insert descriptive text and schematic(s) of your implementation.
 
->Here is a schematic of the project implementation we designed with `EasyEda`. For this project, we use one analog joy-stick (2 ADC channels, 1 push button), rotary encoder (with active low push button), and one Digilent PmodCLP LCD module.
+>Here is a schematic of the project implementation we designed with `EasyEda`. For this project, we use one analog joy-stick (2 ADC channels, 1 push button), rotary encoder (with active low push button), one Digilent PmodCLP LCD module and ond DHT12 I2C sensor.
 >The LCD module is wired in the same way as in [Tomas Fryza PCB shields schematic](https://oshwlab.com/tomas.fryza/arduino-shields).
 
 ![project](https://user-images.githubusercontent.com/114081879/203870031-c122c04f-a4bb-45ab-9847-a770181ee708.svg)
