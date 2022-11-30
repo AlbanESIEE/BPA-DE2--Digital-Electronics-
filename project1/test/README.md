@@ -32,7 +32,7 @@ Insert descriptive text and schematic(s) of your implementation.
 >Here is a schematic of the project implementation we designed with `EasyEda`. For this project, we use one analog joy-stick (2 ADC channels, 1 push button), rotary encoder (with active low push button), one Digilent PmodCLP LCD module and ond DHT12 I2C sensor.
 >The LCD module is wired in the same way as in [Tomas Fryza PCB shields schematic](https://oshwlab.com/tomas.fryza/arduino-shields).
 
-![Schematic_Digital electronics 2 (DE2)_2022-11-30](https://user-images.githubusercontent.com/114081879/204892006-43e35d4e-78b4-4ba0-9d80-c2285e4bf70e.svg)
+![Schematic_Digital electronics 2 (DE2)_2022-11-30](https://user-images.githubusercontent.com/114081879/204892318-fbbd6490-a683-4474-9b9c-97f51b8b66cd.svg)
 
 >In the following tab, we have mapped sensors pins to Arduino Board pins. The Arduino Uno board pinout is [accessible here](https://docs.arduino.cc/static/6ec5e4c2a6c0e9e46389d4f6dc924073/4ef49/Pinout-UNOrev3_latest.png). We also describe from the `ATMEGA328` point of view if connections are configured as inputs or outputs (I/O).
 >We use severals documentations and datashets : 
