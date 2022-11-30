@@ -72,18 +72,18 @@ For the project, we use the following repository structure :
    │    └── timer.h
    ├── lib                        // Libraries
    │    └── gpio                  
-   │    |    └── gpio.c     
-   │    |    └── gpio.h
+   │    │    └── gpio.c     
+   │    │    └── gpio.h
    │    └── lcd
-   │    |    └── lcd.c
-   │    |    └── lcd.h
-   │    |    └── lcd_definitions.h
+   │    │    └── lcd.c
+   │    │    └── lcd.h
+   │    │    └── lcd_definitions.h
    |    └── uart                  // Only used to debug code
-   |    |       └── uart.c
-   |    |       └── uart.h
+   |    │       └── uart.c
+   |    │       └── uart.h
    |    └── twi                   // Used for DHT12 sensor I2C communication
-   |    |       └── twi.c
-   |    |       └── twi.h
+   |    │       └── twi.c
+   |    │       └── twi.h
    ├── src                         // Source file(s)
    │   └── main.c
    ├── test                        // Report of this project
