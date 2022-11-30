@@ -165,21 +165,17 @@ As we saw in lab 7 of Digital Electronics 2, according to the [DHT12 manual](htt
 
 |Register address|	Description|
 |:--|:--|
-|0x00|	Humidity integer part|
-|0x01|	Humidity decimal part|
-|0x02|	Temperature integer part|
-|0x03|	Temperature decimal part|
-|0x04|	Checksum |
+|`0x00`| Humidity integer part|
+|`0x01`| Humidity decimal part|
+|`0x02`| Temperature integer part|
+|`0x03`| Temperature decimal part|
+|`0x04`| Checksum |
 
 So, if the user : 
-- push the rotary encoder button, we display the temperature of the room.
-- push the joystick switch, we display the humidity of the room.
+- pushes the rotary encoder button, we display the temperature of the room (as on *figure 1* below).
+- pushes the joystick switch, we display the humidity of the room (as on *figure 2* below).
 
-![IMG_6263 Grande](https://user-images.githubusercontent.com/114081879/204875703-c43922aa-0f49-48d7-9b26-dcd16da57875.jpeg)
-
-![IMG_6265 Grande](https://user-images.githubusercontent.com/114081879/204875736-96c4d15a-27e8-4252-b8a2-e597e7bf7feb.jpeg)
-
-|Displaying temperature| Displaying humidity|
+|Displaying temperature *(figure 1)*| Displaying humidity *(figure 2)*|
 |:--:|:--:|
 |![IMG_6263 Grande](https://user-images.githubusercontent.com/114081879/204875703-c43922aa-0f49-48d7-9b26-dcd16da57875.jpeg)|![IMG_6265 Grande](https://user-images.githubusercontent.com/114081879/204875736-96c4d15a-27e8-4252-b8a2-e597e7bf7feb.jpeg)|
 
