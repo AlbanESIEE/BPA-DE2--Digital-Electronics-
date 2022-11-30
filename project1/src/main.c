@@ -39,15 +39,16 @@ uint16_t valuex = 512;            // Value for x axis of Joystick
 uint16_t valuey = 512;            // Value for y axis of Joystick
 uint16_t valueclick;        // Value for click from Joystick
 
-uint32_t temperature_room1 = 20;   // Value with wanted temperature room1
-uint32_t temperature_room2 = 10;   // Value with wanted temperature room2
+double temperature_room1 = 20.0;   // Value with wanted temperature room1
+double temperature_room2 = 10.0;   // Value with wanted temperature room2
 uint8_t room = 1;                  // Select the room
 
 uint8_t rotary_CLK_state = 0; 
 uint8_t rotary_DATA_state = 0; 
-uint8_t rotary_PUSH_state = 0; 
+uint8_t rotary_PUSH_state;
 uint8_t rotary_CLK_last_state; 
 uint8_t rotary_counter = 0; 
+uint8_t joystick_PUSH_state=0;
 
 // Declaration of "air" variable with structure "Air_parameters_structure"
 struct Air_parameters_structure {
@@ -63,6 +64,7 @@ struct Air_parameters_structure {
 #define ROTARY_CLK PB4             // Output signal CLK from rotary encoder
 #define ROTARY_DATA PB5            // Output signal DATA from rotary encoder
 #define ROTARY_PUSH PB3            // Output signal PUSH from rotary encoder
+#define JOYSTICK_PUSH PD2          // Output signal PUSH from rotary encoder
 
 // Custom character definition using https://omerk.github.io/lcdchargen/
 uint8_t customCharBegin[8] = {
@@ -75,7 +77,7 @@ uint8_t customCharBegin[8] = {
         0b11111,
         0b11111
 };
-uint8_t customCharMiddle[7] = {
+uint8_t customCharMiddle[8] = {
         0b11111,
         0b11111,
         0b00000,
@@ -85,7 +87,7 @@ uint8_t customCharMiddle[7] = {
         0b11111,
         0b11111
 };
-uint8_t customCharEnd[6] = {
+uint8_t customCharEnd[8] = {
         0b11111,
         0b11111,
         0b00011,
@@ -110,7 +112,7 @@ void display_temperature_target(uint8_t room, uint16_t temperature){
     if(room == 1){
       lcd_clrscr();                   // We clear the display.
       lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
-      lcd_puts("Room 1 - target");
+      lcd_puts("Room 1 - kitchen");
       lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
       lcd_puts("Temp : ");
       itoa(temperature_room1, string, 10);
@@ -121,7 +123,7 @@ void display_temperature_target(uint8_t room, uint16_t temperature){
     else if (room == 2){
       lcd_clrscr();                   // We clear the display.
       lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
-      lcd_puts("Room 2 - target");
+      lcd_puts("Room 2 - bedroom");
       lcd_gotoxy(0, 1);               // Place cursor line 1, column 0.
       lcd_puts("Temp : ");
       itoa(temperature_room2, string, 10);
@@ -137,12 +139,12 @@ void display_temperature_target(uint8_t room, uint16_t temperature){
  **********************************************************************/
 
 void display_instructions(){
-    lcd_clrscr();                   // We clear the display.
-    lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
-    lcd_puts("Joy y: ±2, x:±0,5");
-    lcd_gotoxy(0, 1);               // Place cursor line 0, column 0.
-    lcd_puts("Rot: select room");
-    _delay_ms(1000);
+      lcd_clrscr();                   // We clear the display.
+      lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
+      lcd_puts("Joy y: ±2, x:±0,5");
+      lcd_gotoxy(0, 1);               // Place cursor line 0, column 0.
+      lcd_puts("Rot: select room");
+      _delay_ms(1000);
 }
 
 
@@ -154,8 +156,9 @@ void display_instructions(){
 void read_rotary_encoder(){
     // Reading current value of CLK, DATA and PUSH signals from rotary encoder.
     rotary_CLK_state = GPIO_read(&PINB, ROTARY_CLK);      
-    rotary_DATA_state = GPIO_read(&PORTB, ROTARY_DATA);   
-    rotary_PUSH_state = GPIO_read(&PORTB, ROTARY_PUSH);
+    rotary_DATA_state = GPIO_read(&PINB, ROTARY_DATA);   
+    rotary_PUSH_state = GPIO_read(&PINB, PB3);
+    joystick_PUSH_state = GPIO_read(&PIND, PB2);
 
     // If the initial clock value is not the same than the previous, that means 
     // the encoder has been turned (the direction of rotation is not yet taken into account).
@@ -179,11 +182,23 @@ void read_rotary_encoder(){
     // We update the value of CLK last state by the new one read.
     rotary_CLK_last_state = rotary_CLK_state; 
 
+    
     // If the push button of rotary encoder is pressed
     // (active low : when the knob is pressed down, the voltage goes to 0.)
+    
+    char string_dec[4];          // String for converting numbers by itoa()
+    itoa(rotary_PUSH_state, string_dec, 10);
+    uart_puts(string_dec);
     if(rotary_PUSH_state == 0){
-      display_instructions();
+      //display_instructions();
+      display_temperature_DHT12();
     }
+    if(joystick_PUSH_state == 0){
+      //display_instructions();
+      display_humidity_DHT12();
+    }
+    
+    
 }
 
 /**********************************************************************
@@ -222,7 +237,7 @@ void display_temperature_DHT12(){
     uint8_t ack;                 // ACK response from Slave
     char string_int[3];          // String for converting numbers by itoa()
     char string_dec[3];          // String for converting numbers by itoa()
-
+    
     // Read temperature from 0x5c
     sla = 0x5c;
     twi_start(sla, TWI_WRITE);
@@ -230,29 +245,66 @@ void display_temperature_DHT12(){
     // We start reading integer and decimal part of temperature only if the 
     // sensor is ready to communicate (ie ack = 0).
     if (ack == 0){     
-      twi_write(0x02); 
+      twi_write(0x00); 
       twi_stop();
       twi_start(sla, TWI_READ);
+      air.humid_int = twi_read_ack();
+      air.humid_dec = twi_read_ack();
       air.temp_int = twi_read_ack();
       air.temp_dec = twi_read_nack();
+
 
       // Convert values to string
       itoa(air.temp_int, string_int, 10);
       itoa(air.temp_dec, string_dec, 10);
+
         
       // Display temperature on LCD
       lcd_clrscr();
       lcd_gotoxy(0,0);
       lcd_puts("Temperature in");
       lcd_gotoxy(0,1);
-      lcd_puts(air.temp_int);
-      lcd_gotoxy(2,1);
-      lcd_puts(air.temp_dec);
-      lcd_gotoxy(4,1);
       lcd_puts("degrees");
 
-      _delay_ms(1000);
+      lcd_gotoxy(8,1);
+      lcd_puts(string_int);
+      lcd_gotoxy(10,1);
+      lcd_puts(".");
+      lcd_gotoxy(11,1);
+      lcd_puts(string_dec);
+
+      _delay_ms(2000);
+      //display_humidity_DHT12();
     }
+}
+
+void display_humidity_DHT12(){
+
+      char string_int_hum[3];          // String for converting numbers by itoa()
+      char string_dec_hum[3];          // String for converting numbers by itoa()
+
+
+      itoa(air.humid_int, string_int_hum, 10);
+      itoa(air.humid_dec, string_dec_hum, 10);
+
+      // Display temperature on LCD
+      lcd_clrscr();
+      lcd_gotoxy(0,0);
+      lcd_puts("Humidity in the");
+      lcd_gotoxy(0,1);
+      lcd_puts("room");
+
+
+      lcd_gotoxy(9,1);
+      lcd_puts(string_int_hum);
+      lcd_gotoxy(11,1);
+      lcd_puts(".");
+      lcd_gotoxy(12,1);
+      lcd_puts(string_dec_hum);
+      lcd_gotoxy(13,1);
+      lcd_putc(0x25);
+      
+      _delay_ms(2000);
 }
 
 /**********************************************************************
@@ -344,6 +396,7 @@ int main(void)
     GPIO_mode_input_pullup(&DDRB, ROTARY_CLK);
     GPIO_mode_input_pullup(&DDRB, ROTARY_DATA);
     GPIO_mode_input_pullup(&DDRB, ROTARY_PUSH);
+    GPIO_mode_input_pullup(&DDRD, JOYSTICK_PUSH);
 
     // Reading initial state of CLK signal from rotary encoder
     rotary_CLK_last_state = GPIO_read(&PORTB, ROTARY_CLK);
@@ -370,7 +423,7 @@ ISR(TIMER1_OVF_vect)
     static uint8_t no_of_overflows = 0;
     no_of_overflows++;
     // Do this every 3 x 33 ms = 100 ms
-    if (no_of_overflows >= 3)
+    if (no_of_overflows >= 2)
     {
         no_of_overflows = 0;
         /*
@@ -456,7 +509,8 @@ ISR(TIMER1_OVF_vect)
         // We call the read_rotary_encoder() function to read the rotary encoder 
         // position. The function selects the room according to the direction of rotation.
         read_rotary_encoder(); 
-        
+
+      
         
         // If the user has selected the room 1 with the rotary encoder, 
         // the lcd displays room1 target and the user can change temperature with the
@@ -476,22 +530,22 @@ ISR(TIMER1_OVF_vect)
             }
             // Joystick pushed up (north direction), 
             // we increase temperature of selected room by 5°C.
-            if(valuex<100 && valuey >500){
-              temperature_room1 += 5;
+            if(valuey<100 && valuex >490){
+              temperature_room1 += 3;
             }
             // Joystick pushed down (south direction),
             // we decrease temperature of selected room by 5°C.
-            if(valuex>1000 && valuey <520 && valuey > 500){
-              temperature_room1 -= 5;
+            if(valuey>800 && valuex <530 && valuex > 490){
+              temperature_room1 -= 3;
             }
             // Joystick pushed right (east direction),
             // we decrease temperature of selected room by 1°C.
-            if(valuey<10 && valuex >500 && valuex<520){
+            if(valuex>800 && valuey >480 && valuey<530){
               temperature_room1 -=1;
             }
             // Joystick pushed left (west direction),
             // we increase temperature of selected room by 1°C.
-            if(valuey>1000 & valuex>500 && valuex<520){
+            if(valuex<200 & valuey>490 && valuey<530){
               temperature_room1 +=1;
             }
 
@@ -520,7 +574,6 @@ ISR(TIMER1_OVF_vect)
             */
             //valuex = 512;
             //valuey = 512;
-  
         }
 
         /*
@@ -529,12 +582,47 @@ ISR(TIMER1_OVF_vect)
         joystick as described previously.
         */
         if (room == 2){
-              
-              // to complete !! 
+            // String for converted numbers by itoa()
+            char string[4];  
 
-              display_temperature_target(room, temperature_room2);
+            // Analysing x and y axis positions of joystick to increase/decrease 
+            // temperature by step of ±5°C (y axis) and ±1°C (x axis).
+            // The analog values for different positions of joystick are described in joystick's datasheet.
+
+            if(valuex >=500 && valuex<= 520 && valuey >=500 && valuey<= 520){
+              temperature_room1 = temperature_room1; 
+              temperature_room2 = temperature_room2; 
+            }
+            // Joystick pushed up (north direction), 
+            // we increase temperature of selected room by 5°C.
+            if(valuey<100 && valuex >490){
+              temperature_room2 += 3;
+            }
+            // Joystick pushed down (south direction),
+            // we decrease temperature of selected room by 5°C.
+            if(valuey>800 && valuex <530 && valuex > 490){
+              temperature_room2 -= 3;
+            }
+            // Joystick pushed right (east direction),
+            // we decrease temperature of selected room by 1°C.
+            if(valuex>800 && valuey >480 && valuey<530){
+              temperature_room2 -=1;
+            }
+            // Joystick pushed left (west direction),
+            // we increase temperature of selected room by 1°C.
+            if(valuex<200 & valuey>490 && valuey<530){
+              temperature_room2 +=1;
+            }
+
+            // Call of display temperature target function to display the target
+            // which has been set on LCD. The parameters are : 
+            // - the room (1 or 2);
+            // - the temperature target; 
+            display_temperature_target(room, temperature_room2);   
           }
     }
+
+    
     // Start ADC conversion
     ADCSRA = ADCSRA | (1<<ADSC);
 }
@@ -630,4 +718,3 @@ Please note :
 - On simulIDE, the button (SW) of joystick is active high, but for the real one we have, it's an active low configuration.
 - On simulIde, the x and y axis are inverted in comparaison with the real joystick.  
 */
-
