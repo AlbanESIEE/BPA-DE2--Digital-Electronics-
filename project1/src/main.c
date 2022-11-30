@@ -133,22 +133,6 @@ void display_temperature_target(uint8_t room, uint16_t temperature){
 }
 
 /**********************************************************************
- * Function: Display instructions on LCD
- * Purpose:  Display instructions on LCD if the push button of the 
- *           rotary encoder is pressed. 
- **********************************************************************/
-
-void display_instructions(){
-      lcd_clrscr();                   // We clear the display.
-      lcd_gotoxy(0, 0);               // Place cursor line 0, column 0.
-      lcd_puts("Joy y: ±2, x:±0,5");
-      lcd_gotoxy(0, 1);               // Place cursor line 0, column 0.
-      lcd_puts("Rot: select room");
-      _delay_ms(1000);
-}
-
-
-/**********************************************************************
  * Function: Read value of rotary encoder
  * Purpose:  Read value of rotary encoder and select the room in  
  *           function of rotation.
@@ -185,20 +169,24 @@ void read_rotary_encoder(){
     
     // If the push button of rotary encoder is pressed
     // (active low : when the knob is pressed down, the voltage goes to 0.)
-    
-    char string_dec[4];          // String for converting numbers by itoa()
+    // we have checked this with the logical analyser.
+
+    // Debugging the rotary encoder push button signal 
+    char string_dec[4];        
     itoa(rotary_PUSH_state, string_dec, 10);
     uart_puts(string_dec);
+
     if(rotary_PUSH_state == 0){
-      //display_instructions();
-      display_temperature_DHT12();
+      display_temperature_DHT12();    // We display air temperature 
     }
+
+    // If the push button of joystick is pressed
+    // (active low : when the knob is pressed down, the voltage goes to 0.)
+    // we have checked this with the logical analyser.
     if(joystick_PUSH_state == 0){
       //display_instructions();
-      display_humidity_DHT12();
-    }
-    
-    
+      display_humidity_DHT12();       // We display air humidity
+    }  
 }
 
 /**********************************************************************
@@ -244,7 +232,17 @@ void display_temperature_DHT12(){
     
     // We start reading integer and decimal part of temperature only if the 
     // sensor is ready to communicate (ie ack = 0).
-    if (ack == 0){     
+    if (ack == 0){   
+      // Writing in 0x00 (address of humid_int), then stopping the communication 
+      // and starting it again by reading the value in this register. 
+      // The program will automatically shift the adress of register to the next one 
+      // when using again ack() while the nack() instruction.
+
+      // 0x00	Humidity integer part
+      // 0x01	Humidity decimal part
+      // 0x02	Temperature integer part
+      // 0x03	Temperature decimal part
+
       twi_write(0x00); 
       twi_stop();
       twi_start(sla, TWI_READ);
@@ -253,19 +251,16 @@ void display_temperature_DHT12(){
       air.temp_int = twi_read_ack();
       air.temp_dec = twi_read_nack();
 
-
       // Convert values to string
       itoa(air.temp_int, string_int, 10);
       itoa(air.temp_dec, string_dec, 10);
 
-        
       // Display temperature on LCD
       lcd_clrscr();
       lcd_gotoxy(0,0);
       lcd_puts("Temperature in");
       lcd_gotoxy(0,1);
       lcd_puts("degrees");
-
       lcd_gotoxy(8,1);
       lcd_puts(string_int);
       lcd_gotoxy(10,1);
@@ -273,28 +268,32 @@ void display_temperature_DHT12(){
       lcd_gotoxy(11,1);
       lcd_puts(string_dec);
 
-      _delay_ms(2000);
-      //display_humidity_DHT12();
+      _delay_ms(2000);                // Wait 2s before clearing the display
     }
 }
 
+/**********************************************************************
+ * @name Displaying indoor humidity on LCD.
+ * @brief Displaying indoor temperature on LCD, mesures are done with 
+ * DH12 I2C temperature sensor.
+ * @note Address of the I2C DHT12 has been found during Lab 7. 
+ * @note Reading registers is done in display_temperature_DHT12() function.
+ * @return none
+ **********************************************************************/
 void display_humidity_DHT12(){
 
       char string_int_hum[3];          // String for converting numbers by itoa()
       char string_dec_hum[3];          // String for converting numbers by itoa()
 
+      itoa(air.humid_int, string_int_hum, 10);    // Converting numbers by itoa()
+      itoa(air.humid_dec, string_dec_hum, 10);    // Converting numbers by itoa()
 
-      itoa(air.humid_int, string_int_hum, 10);
-      itoa(air.humid_dec, string_dec_hum, 10);
-
-      // Display temperature on LCD
+      // Display humidity on LCD
       lcd_clrscr();
       lcd_gotoxy(0,0);
       lcd_puts("Humidity in the");
       lcd_gotoxy(0,1);
       lcd_puts("room");
-
-
       lcd_gotoxy(9,1);
       lcd_puts(string_int_hum);
       lcd_gotoxy(11,1);
@@ -302,9 +301,10 @@ void display_humidity_DHT12(){
       lcd_gotoxy(12,1);
       lcd_puts(string_dec_hum);
       lcd_gotoxy(13,1);
-      lcd_putc(0x25);
-      
-      _delay_ms(2000);
+      // We display the % sigle. To do that, we see the table of characters of LCD display.
+      // the percentage sigle is represented by 0b0010_0101 so 0x25 in hexa (cf.datasheet).
+      lcd_putc(0x25);                         
+      _delay_ms(2000);                        // Wait 2s before clearing the display
 }
 
 /**********************************************************************
@@ -355,6 +355,7 @@ int main(void)
 
     /*
     // Analog embedded temperature sensor of ATMEGA328P.
+    // NOTE : Finally, we don't use this embedded sensor (cf report on my github for reasons).
     if (mux == 8){
       // Configure Analog-to-Digital Convertion unit
       // Internal 1.1V Voltage Reference with external capacitor at AREF pin
@@ -365,7 +366,6 @@ int main(void)
       // Select ADC voltage reference to "AVcc with external capacitor at AREF pin"
       ADMUX = ADMUX | (1<<REFS0);
     }*/
-
 
     // Configure Analog-to-Digital Convertion unit
     // Select ADC voltage reference to "AVcc with external capacitor at AREF pin"
@@ -396,9 +396,12 @@ int main(void)
     GPIO_mode_input_pullup(&DDRB, ROTARY_CLK);
     GPIO_mode_input_pullup(&DDRB, ROTARY_DATA);
     GPIO_mode_input_pullup(&DDRB, ROTARY_PUSH);
+
+    // Set GPIO pin of joystick (push button) as input (with embedded input pullup resistor)
     GPIO_mode_input_pullup(&DDRD, JOYSTICK_PUSH);
 
     // Reading initial state of CLK signal from rotary encoder
+    // this value is used in read_rotary_encoder() function.
     rotary_CLK_last_state = GPIO_read(&PORTB, ROTARY_CLK);
 
     // Infinite loop
@@ -422,7 +425,7 @@ ISR(TIMER1_OVF_vect)
 {
     static uint8_t no_of_overflows = 0;
     no_of_overflows++;
-    // Do this every 3 x 33 ms = 100 ms
+    // Do this every 2 x 33 ms = 66 ms
     if (no_of_overflows >= 2)
     {
         no_of_overflows = 0;
@@ -443,13 +446,6 @@ ISR(TIMER1_OVF_vect)
           // Select input channel ADC1 (voltage divider pin)
           ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1); ADMUX|= (1<<MUX0);
           // Switching for ADC2 at the next TIMER1_OVF_vect
-          mux=0;
-          break;
-
-        case 2:
-          // Select input channel ADC2 (voltage divider pin)
-          ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX0); ADMUX|= (1<<MUX1);
-          // Switching for ADC8 at the next TIMER1_OVF_vect
           mux=0;
           break;
         }
@@ -510,7 +506,6 @@ ISR(TIMER1_OVF_vect)
         // position. The function selects the room according to the direction of rotation.
         read_rotary_encoder(); 
 
-      
         
         // If the user has selected the room 1 with the rotary encoder, 
         // the lcd displays room1 target and the user can change temperature with the
@@ -554,26 +549,6 @@ ISR(TIMER1_OVF_vect)
             // - the room (1 or 2);
             // - the temperature target; 
             display_temperature_target(room, temperature_room1);  
-
-
-            /*
-            // A DECOMMENTER POUR LE JOYSTICK REEL
-
-            if(valuey<100 && valuex >500){
-              temperature_room1 += 5;
-            }
-            if(valuey>1000 && valuex <520 && valuex > 500){
-              temperature_room1 -= 5;
-            }
-            if(valuex<10 && valuey >500 && valuey<520){
-              temperature_room1 -=1;
-            }
-            if(valuex>1000 & valuey>500 && valuey<520){
-              temperature_room1 +=1;
-            }
-            */
-            //valuex = 512;
-            //valuey = 512;
         }
 
         /*
@@ -621,7 +596,6 @@ ISR(TIMER1_OVF_vect)
             display_temperature_target(room, temperature_room2);   
           }
     }
-
     
     // Start ADC conversion
     ADCSRA = ADCSRA | (1<<ADSC);
@@ -640,23 +614,9 @@ ISR(ADC_vect)
     if(mux == 1){
       // String for converted numbers by itoa()
       char string[4];  
-      // Display text on lcd.
-      //lcd_gotoxy(0,0);
-      //lcd_puts("val x");
       // Read converted value
       // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
       valuex = ADC;
-      
-      /*
-      // Convert "value" to "string" and display it
-      itoa(valuex, string, 10);
-      lcd_gotoxy(6,0);
-      //To erease previous value on LCD.
-      lcd_puts("     ");
-      // Display value on lcd.
-      lcd_gotoxy(6,0);
-      lcd_puts(string);
-      */
     }
 
     /* In this case, (mux=0), that means that we have selected input channel ADC0. 
@@ -664,50 +624,10 @@ ISR(ADC_vect)
        This value corresponds to y axis variations (range : 0-1023).
     */
     if(mux==0){
-      // Select input channel ADC0 (voltage divider pin)
-      //ADMUX = ADMUX & ~(1<<MUX3 | 1<<MUX2| 1<<MUX1| 1<<MUX0);
-      
-      
       char string[4];  // String for converted numbers by itoa()
-      //lcd_gotoxy(0,1);
-      //lcd_puts("val y");
       // Read converted value
       // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
-      
-      valuey = ADC;
-      // Convert "value" to "string" and display it
-      
-      /*
-      itoa(valuey, string, 10);
-      lcd_gotoxy(6,1);
-      lcd_puts("     ");
-      lcd_gotoxy(6,1);
-      lcd_puts(string);
-      */
-      
-    }
-
-    
-  
-    /* In this case, (mux=2), that means that we have selected input channel ADC2. 
-       So, we have to read the value from ADC and store it in our valueclick variable.
-       This value corresponds to button pressed from joystick (0 or 1023).
-       --> If the button is not pressed : 1023 (HIGH state).
-       --> If the button is pressed : <200 (LOW state).
-    */
-    if(mux == 2){
-      char string[4];  // String for converted numbers by itoa()
-      valueclick = ADC;
-      // Button pressed 
-      if (valueclick < 200){ 
-          //lcd_gotoxy(11,1);
-          //lcd_puts("click");
-      }
-      // Button not pressed
-      else { 
-          //lcd_gotoxy(11,1);
-          //lcd_puts("     ");
-      }
+      valuey = ADC; 
     }
 }
 
