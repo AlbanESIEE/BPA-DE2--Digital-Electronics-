@@ -20,9 +20,10 @@ The goal of the project is cooperation in pairs, further study of the topic, des
 
 ### Description of the projet
 The goal of this project is to develop a multiroom digital setpoint thermostat. To do this, we use :
-- a rotary encoder to select the room and display informations, 
-- a 2-axis joystick to set the temperature set-point, 
+- a rotary encoder to select the room (rotation) and display air temperature (push button), 
+- a 2-axis joystick to set the temperature set-point and to display air humidity (push button), 
 - one LCD display module which is used as UI (user interface) to read data entered.
+- one DHT12 sensor (with I2C commmunication) to read air temperature and humidity.
 
 >The project is running thanks to `ATMEGA328` microcontroller and it is written in C. The implementation on microcontroller is performed with PlatformIO and Microsoft Visual Studio Code.
 
@@ -40,6 +41,7 @@ Insert descriptive text and schematic(s) of your implementation.
 >- Documentation of `Digilent PmodCLP LCD` module is [available here](https://digilent.com/reference/_media/pmod:pmod:pmodCLP_rm.pdf).
 >- Documentation of `rotary encoder` (with very clear animations and schematics) is [available here](https://lastminuteengineers.com/rotary-encoder-arduino-tutorial/).
 >- Documentation of `analog joystick` (with very clear animations and schematics) is [available here](https://lastminuteengineers.com/joystick-interfacing-arduino-processing/).
+>- Documentation of `DHT12 sensor`(provided by Tomas Fryza) is [available here](https://github.com/tomas-fryza/digital-electronics-2/blob/master/docs/dht12_manual.pdf).
 
 |Sensor|Sensor PIN |Arduino PIN | Arduino I/O|
 | :-- | :-: | :-: | :-- |
@@ -56,8 +58,10 @@ Insert descriptive text and schematic(s) of your implementation.
 | LCD module| `DB5` | `PB5` | Output - digital |
 | LCD module| `DB6` | `PB6` | Output - digital |
 | LCD module| `DB7` | `PB7` | Output - digital |
+| DHT12 sensor| `SDA` | `PC4` | I/O |
+| DHT12 sensor| `SCL` | `PC5` | I/O |
 
-
+>Please note we didn't mentionned VCC and GND connections in this tab for mor clarity.
 
 ## Software description
 
@@ -65,22 +69,28 @@ Put flowchats of your algorithm(s). Write descriptive text of your libraries and
 
 For the project, we use the following repository structure :
  ```c
-   DE2-Project         // PlatfomIO project
-   ├── include         // Included files
+   DE2-Project                    // PlatfomIO project
+   ├── include                    // Included files
    │    └── timer.h
-   ├── lib             // Libraries
-   │    └── gpio
-   │        └── gpio.c
-   │        └── gpio.h
+   ├── lib                        // Libraries
+   │    └── gpio                  
+   │    |    └── gpio.c     
+   │    |    └── gpio.h
    │    └── lcd
-   │        └── lcd.c
-   │        └── lcd.h
-   │        └── lcd_definitions.h
-   ├── src             // Source file(s)
+   │    |    └── lcd.c
+   │    |    └── lcd.h
+   │    |    └── lcd_definitions.h
+   |    └── uart                  // Only used to debug code
+   |    |       └── uart.c
+   |    |       └── uart.h
+   |    └── twi                   // Used for DHT12 sensor I2C communication
+   |    |       └── twi.c
+   |    |       └── twi.h
+   ├── src                         // Source file(s)
    │   └── main.c
-   ├── test            // No need this
-   ├── platformio.ini  // Project Configuration File
-   └── README.md       // Report of this project
+   ├── test                        // Report of this project
+   ├── platformio.ini              // Project Configuration File
+   └── README.md                   
    ```
 
 Here is a flowchart of our [`main.c`](https://github.com/AlbanESIEE/BPA-DE2--Digital-Electronics-/blob/master/project1/src/main.c) program. We used Wondershare EdrawMax software to design it.
@@ -102,25 +112,25 @@ To answer this requirement, we have decided to use a `switch/case` structure to 
 
 Our implementation of the joystick in the project can be resumed by the following figure. 
 In fact, if the user...
-- push the joystick **up** : we increase the room temperature of 2°C.
-- push the joystick **down** : we decrease the room temperature of 2°C.
-- push the joystick **right** : we increase the room temperature of 0.5°C.
-- push the joystick **left** : we decrease the room temperature of 0.5°C.
+- push the joystick **up** : we increase the room temperature of 5°C.
+- push the joystick **down** : we decrease the room temperature of 5°C.
+- push the joystick **right** : we decrease the room temperature of 1°C.
+- push the joystick **left** : we increase the room temperature of 1°C.
 ```c 
               ---------------------------------
               | Temperature set with joystick |
               ---------------------------------
 
-                           + 2°C
+                           + 5°C
                             | |          
                             | |        
                             | |       
                    ..................... x axis 
-            -0.5°C ..................... +0.5°C
+            +1.0°C ..................... -1.0°C
                             | | 
                             | | 
                             | | \
-                           -2°C  \
+                           -5°C  \
                                   y axis 
 ```
 
@@ -132,6 +142,16 @@ The rotary encoder has two digital output signals. The first one is the `CLOCK`,
 The second one is the `DATA`. It is also active during rotation but there is an offset (phase shift) between the clock signal and the data signal. Depending on whether we have a phase advance or phase late delay, we can easily deduce the direction of rotation.
 >For software implementation of rotary encoder, we need to read the both signals and to read the `DATA` pin and compare it with the current state of the `CLOCK` pin. As we use digital I/O ports, we don't have the same problem that for ADC conversion where we had to change ADC input in time.
 
+### Reading temperature and humidity values
+As we saw in lab 7 of Digital Electronics 2, according to the [DHT12 manual](https://github.com/tomas-fryza/digital-electronics-2/blob/master/docs/dht12_manual.pdf), the internal DHT12 data registers have the following structure. 
+
+|Register address|	Description|
+|:--|:--|
+|0x00|	Humidity integer part|
+|0x01|	Humidity decimal part|
+|0x02|	Temperature integer part|
+|0x03|	Temperature decimal part|
+|0x04|	Checksum |
 
 ## Documentation of the project
 
