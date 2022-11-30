@@ -152,8 +152,8 @@ The second one is the `DATA`. It is also active during rotation but there is an 
 ### Reading temperature and humidity values by I2C
 We use the I2C temperature and humidity sensor. This sensor has a nice precision in comparison with the embedded temperature sensor of `ATMEGA328` which has a ±10°C precision.
 >We have tried to use the embedded temperature sensor of `ATMEGA328` following process described in microcontroller [datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf), *(Table 24-4, page 258)*.
-- Firstly, we have to switch beetween ADC ports to ADC8 Multiplexer Selection Register. 
-- After, we have to change the reference voltage to 1.1V (ie. REFS1 = 1 and REFS0 = 1), that is a problem because to read other analog values (from joystick), we use $AV_{CC}$ with external capacitor at AREF pin (ie. REFS1 = 0 and REFS0 = 1).
+- Firstly, we have to switch beetween ADC ports to `ADC8` Multiplexer Selection Register. 
+- After, we have to change the reference voltage to 1.1V (ie. `REFS1 = 1` and `REFS0 = 1`), that is a problem because to read other analog values (from joystick), we use $AV_{CC}$ with external capacitor at AREF pin (ie. `REFS1 = 0` and `REFS0 = 1`).
 - Then, we have to read the analog value and convert it in voltage according to the reference voltage (1.1V).
 - Finally, the documentation provides us only three characteristics points we have in this tab :
 
