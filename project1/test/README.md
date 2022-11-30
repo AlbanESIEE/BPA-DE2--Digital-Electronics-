@@ -195,12 +195,14 @@ The documentation is available in PDF by following [this link](https://github.co
 To generate documentation in PDF with $\LaTeX$, we have to be in the doxygen working repository and in the folder latex.
 After, we use the command `make pdf` to generate the PDF file.
 
-
 ## Video
 
 Insert a link to a short video with your practical implementation example (1-3 minutes, e.g. on YouTube).
 
+>Here is the video we record in class. It is accessible by following this link.
+
 ## References
 
-1. Write your text here.
-2. ...
+1. Tomas Fryza, Brno University of Technology 
+2. Peter Fleury's libraries 
+3. All other datasheets and references used are mentionned after each explanation of this README.md file.
