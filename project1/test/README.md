@@ -199,7 +199,7 @@ After, we use the command `make pdf` to generate the PDF file.
 
 Insert a link to a short video with your practical implementation example (1-3 minutes, e.g. on YouTube).
 
->Here is the video we record in class. It is accessible by following this link.
+>Here is the video we record in class. It is accessible by following [this link](https://drive.google.com/file/d/1GANSGJ5MAPglpS4g42GEvkK2dM7Yng3m/view?usp=sharing).
 
 ## References
 
